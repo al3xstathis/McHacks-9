@@ -1,5 +1,11 @@
 body {
-  margin: 0;
   box-sizing: border-box;
   font-family: 'Quantico', sans-serif;
+  padding: 80px;
+  height: 100vh;
+}
+
+#root {
+  background-color: #C4C4C4;
+  height: 100%;
 }
