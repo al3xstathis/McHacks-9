@@ -5,6 +5,7 @@ import { VscChromeMinimize } from "react-icons/vsc"
 import { AiOutlineClose } from "react-icons/ai"
 import styled from "styled-components"
 import { FlexBox } from "./index"
+import { useNavigate } from "react-router-dom";
 
 const Features = styled(FlexBox)`
 align-items: stretch;
@@ -33,14 +34,14 @@ color: white;
 }
 `
 
-const Feature1 = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === 'feature1' && '#000000'};
+const IdeaGenerator = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === 'idea-generator' && '#000000'};
 `
-const Feature2 = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === `feature2` && '#000000'};
+const NameGenerator = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === `name-generator` && '#000000'};
 `
-const Feature3 = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === `feature3` && '#000000'};
+const CodeAnalyzer = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === `code-analyzer` && '#000000'};
 `
 
 const CFlexBox = styled(FlexBox)`
@@ -58,26 +59,47 @@ color: white;
 `
 
 function Navbar(props) {
+    const navigate = useNavigate();
+
+    const handleIdeaGenerator = () => {
+        navigate("idea-generator")
+        props.tabChange("idea-generator");
+    }
+
+    const handleNameGenerator = () => {
+        navigate("name-generator")
+        props.tabChange("name-generator");
+    }
+
+    const handleCodeAnalyzer = () => {
+        navigate("code-analyzer")
+        props.tabChange("code-analyzer");
+    }
+
+    const handleHome = () => {
+        navigate("")
+        props.tabChange("home");
+    }
 
     return (
         <>
             <CFlexBox>
                 <Features>
-                    <CHome selectedTab={props.selectedTab}>
+                    <CHome selectedTab={props.selectedTab} onClick={() => handleHome()}>
                         <RiHome2Fill size={20} />
                     </CHome>
                     <p>|</p>
-                    <Feature1 selectedTab={props.selectedTab}>
+                    <IdeaGenerator selectedTab={props.selectedTab} onClick={() => handleIdeaGenerator()}>
                         Idea Generator
-                    </Feature1>
+                    </IdeaGenerator>
                     <p>|</p>
-                    <Feature2 selectedTab={props.selectedTab}>
-                        Bug Analyzer
-                    </Feature2>
+                    <NameGenerator selectedTab={props.selectedTab} onClick={() => handleNameGenerator()}>
+                        Name Generator
+                    </NameGenerator>
                     <p>|</p>
-                    <Feature3 selectedTab={props.selectedTab}>
-                        Tech Stack Generator
-                    </Feature3>
+                    <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleCodeAnalyzer()}>
+                        Code Analyzer
+                    </CodeAnalyzer>
                 </Features>
                 <WindowsIcons>
                     <GiSquare></GiSquare>
