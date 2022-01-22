@@ -53,7 +53,7 @@ const NameGenerator = () => {
 
     const submitDescription = () => {
         const message = {
-            sender: 'User',
+            sender: 'User@McHacks9',
             message: input
         }
         setMessages([
@@ -83,7 +83,7 @@ const NameGenerator = () => {
 
     const submitKeywords = () => {
         const message = {
-            sender: 'User',
+            sender: 'User@McHacks/namegenerator',
             message: input
         }
         setMessages([
