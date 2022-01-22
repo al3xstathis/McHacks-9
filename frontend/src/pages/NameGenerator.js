@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {Container, FlexBox} from "../components";
+import React, { useEffect, useState } from 'react'
+import { Container, FlexBox } from "../components";
 import styled from 'styled-components'
-import {HiOutlineChevronRight} from 'react-icons/hi'
+import { HiOutlineChevronRight } from 'react-icons/hi'
 import API from "../api/api";
 
 
@@ -33,7 +33,7 @@ const NameGenerator = () => {
     }, [receiveValue])
 
     useEffect(() => {
-        if(!!payload.keywords && !!payload.description) {
+        if (!!payload.keywords && !!payload.description) {
             findName()
         }
     }, [payload])
@@ -100,9 +100,9 @@ const NameGenerator = () => {
 
     return (
         <Container direction={'column'}>
-            <div style={{maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%'}}>
+            <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
                 <Messages id={'messages'} fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'}
-                          style={{paddingBottom: 20}}>
+                    style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
                             <Text>{idea.sender} ></Text>
@@ -112,11 +112,11 @@ const NameGenerator = () => {
                 </Messages>
             </div>
             <InputContainer align={'center'} justify={'flex-start'}>
-                <HiOutlineChevronRight style={{color: 'white', width: '40px', fontSize: 30, paddingLeft: 20}}/>
+                <HiOutlineChevronRight style={{ color: 'white', width: '40px', fontSize: 30, paddingLeft: 20 }} />
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                       variant="unstyled" placeholder={"Add an Idea"}/>
+                    variant="unstyled" placeholder={"Add an Idea"} />
             </InputContainer>
         </Container>
     )
