@@ -4,6 +4,7 @@ import { CodeAnalyzer } from './CodeAnalyzer';
 import { IdeaGenerator } from './IdeaGenerator';
 import { Home } from './Home';
 import NameGenerator from "./NameGenerator";
+import Reminder from "./Reminder";
 
 
 const Router = () => {
@@ -13,6 +14,7 @@ const Router = () => {
             <Route path="/idea-generator" element={<IdeaGenerator />} />
             <Route path="/name-generator" element={<NameGenerator/>} />
             <Route path="/code-analyzer" element={<CodeAnalyzer />} />
+            <Route path="/reminder" element={<Reminder/>}/>
         </Routes>
     )
 }
