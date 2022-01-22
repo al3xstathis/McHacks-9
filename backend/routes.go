@@ -7,12 +7,12 @@ import (
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 
-	// Test
-	r.GET("/test", testHandler)
+	r.POST("/test", testHandler)
 
 	r.POST("/nameGenerator", nameGeneratorHandler)
 	r.POST("/ideaGenerator", ideaGeneratorHandler)
 
+	// CORS enabling
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
