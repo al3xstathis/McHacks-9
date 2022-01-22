@@ -2,7 +2,7 @@ body {
   box-sizing: border-box;
   font-family: 'Quantico', sans-serif;
   color: white;
-  margin: 50px;
+  margin: 50px 100px;
   height: 100vh;
   overflow: hidden;
 }
@@ -12,5 +12,9 @@ body {
 }
 
 button {
+  font-family: 'Quantico', sans-serif;
+}
+
+* {
   font-family: 'Quantico', sans-serif;
 }
