@@ -1,20 +1,40 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"log"
+	"os"
 	"time"
 
 	twilio "github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
+func getAuth() (string, string, error) {
+	SID := os.Getenv("TWILIO_SID")
+	if SID == "" {
+		return "", "", errors.New("TWILIO_SID not found")
+	}
+
+	auth := os.Getenv("TWILIO_AUTH_TOKEN")
+	if auth == "" {
+		return "", "", errors.New("TWILIO_AUTH_TOKEN not found")
+	}
+
+	return SID, auth, nil
+}
+
 func sendSMS(body string, number string) {
-	accountSid := "ACb21e5a7a74003191fb2e00072dc7655b"
-	authToken := "5ee8581a21f0200d97036db9f5c923de"
+	SID, auth, err := getAuth()
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
 	client := twilio.NewRestClientWithParams(twilio.RestClientParams{
-		Username: accountSid,
-		Password: authToken,
+		Username: SID,
+		Password: auth,
 	})
 
 	params := &openapi.CreateMessageParams{}
