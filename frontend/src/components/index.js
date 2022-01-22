@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export const FlexBox = styled(motion.div)`
 	display: flex;
@@ -7,5 +7,5 @@ export const FlexBox = styled(motion.div)`
 	justify-content: ${props => props.justify || "flex-start"};
 	align-items: ${props => props.align || "center"};
 	flex-wrap: ${props => props.wrap || "nowrap"};
-    ${props => props.fluid ? {width: '100%', flex: 1} : {}}
+    ${props => props.fluid ? { width: '100%', flex: 1 } : {}}
 `
