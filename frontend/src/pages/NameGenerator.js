@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {FlexBox} from "../components";
+import {Container, FlexBox} from "../components";
 import styled from 'styled-components'
 import {HiOutlineChevronRight} from 'react-icons/hi'
 import API from "../api/api";
@@ -155,10 +155,3 @@ const Text = styled.p`
   font-size: 18px;
 `
 
-const Container = styled(FlexBox)`
-  background-color: grey;
-  box-shadow:0 0 0 1px black inset;
-  color: white;
-  height: 80vh;
-overflow: hidden;
-`
