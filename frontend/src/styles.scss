@@ -1,9 +1,14 @@
 body {
-  margin: 0;
   box-sizing: border-box;
   font-family: 'Quantico', sans-serif;
   color: white;
   margin: 50px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
 }
 
 button {
