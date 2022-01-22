@@ -6,7 +6,6 @@ import API from "../api/api";
 
 
 const NameGenerator = () => {
-    // const getName = useNameGenerator()
     const [input, setInput] = useState('')
     const [receiveValue, setReceiveValue] = useState('keywords')
     const [payload, setPayload] = useState({})
@@ -101,9 +100,8 @@ const NameGenerator = () => {
 
 
     return (
-        <>
-            <FlexBox direction={'column'} justify={'flex-end'} align={'flex-start'}
-                     style={{height: '90%', overflow: 'auto'}}>
+        <Container direction={'column'} >
+            <FlexBox fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'} style={{paddingBottom: 20}}>
                 {messages.map((idea, id) =>
                     <FlexBox key={id}>
                         <Text>{idea.sender} ></Text>
@@ -111,12 +109,12 @@ const NameGenerator = () => {
                     </FlexBox>
                 )}
             </FlexBox>
-            <FlexBox align={'center'} style={{height: '10%', paddingLeft: 20}} fluid="true">
-                <HiOutlineChevronRight style={{}}/>
+            <FlexBox align={'center'} justify={'flex-start'} style={{paddingLeft: 20, width: '100%'}}>
+                <HiOutlineChevronRight style={{color: 'black'}}/>
                 <Input onKeyDown={(e) => handleKeypress(e)} value={input} onChange={e => setInput(e.target.value)}
-                       size={'xl'} variant="unstyled" placeholder={"Add an Idea"}/>
+                        variant="unstyled" placeholder={"Add an Idea"}/>
             </FlexBox>
-        </>
+        </Container>
     )
 }
 
@@ -126,11 +124,17 @@ const Input = styled.input`
   font-size: 20px;
   background-color: transparent;
   border: none;
+  color: black;
   &:focus {
     outline: none;
   }
 `
 
 const Text = styled.p`
+color: black;
   margin-left: 16px;
+`
+
+const Container = styled(FlexBox)`
+  height: 80%;
 `
