@@ -24,17 +24,17 @@ func getEnvVariables() {
 
 	k1 := os.Getenv("API_KEY_1")
 	if k1 == "" {
-		log.Fatal("Could not find API_KEY_1", err)
+		log.Fatal("Could not find API_KEY_1")
 	}
 
 	k2 := os.Getenv("API_KEY_2")
 	if k2 == "" {
-		log.Fatal("Could not find API_KEY_2", err)
+		log.Fatal("Could not find API_KEY_2")
 	}
 
 	k3 := os.Getenv("API_KEY_3")
 	if k3 == "" {
-		log.Fatal("Could not find API_KEY_3", err)
+		log.Fatal("Could not find API_KEY_3")
 	}
 
 	APIKeys[0] = k1

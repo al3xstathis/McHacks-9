@@ -17,10 +17,8 @@ func getAPIKey() string {
 	return APIKeys[rand.Intn(len(APIKeys))]
 }
 
-func openAIRequest(_ *gin.Context, maxTokens int, prompt string, temperature float32, stopSeqs []string, presencePenalty float32) (string, error) {
-	log.Println("!")
+func openAIRequest(maxTokens int, prompt string, temperature float32, stopSeqs []string, presencePenalty float32) (string, error) {
 	c := gogpt.NewClient(getAPIKey())
-	log.Println("?")
 
 	req := gogpt.CompletionRequest{
 		MaxTokens:       maxTokens,
@@ -29,23 +27,19 @@ func openAIRequest(_ *gin.Context, maxTokens int, prompt string, temperature flo
 		Stop:            stopSeqs,
 		PresencePenalty: presencePenalty,
 	}
-	log.Println("??")
+
 	resp, err := c.CreateCompletion(context.Background(), "ada", req)
 	if err != nil {
 		log.Println(err)
 		return "", err
 	}
-	log.Println("???")
 
-	log.Printf("%+v", resp.Choices[0].Text)
-
-	log.Println("????")
 	return resp.Choices[0].Text, nil
 }
 
 // test route
 type testRequest struct {
-	Description string `json:"description" binding:"required"`
+	Description string `json:"description"`
 }
 
 func testHandler(c *gin.Context) {
@@ -75,7 +69,7 @@ func nameGeneratorHandler(c *gin.Context) {
 	}
 
 	prompt := fmt.Sprintf(nameGenerationString, body.Description)
-	res, err := openAIRequest(c, 128, prompt, 0.8, []string{"4.", "\n\n"}, 2.0)
+	res, err := openAIRequest(32, prompt, 0.8, []string{"4.", "\n\n"}, 2.0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return
@@ -98,5 +92,30 @@ func ideaGeneratorHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"idea": "this is an idea"})
+	keywords := body.Keywords[0] + ", " + body.Keywords[1] + " and " + body.Keywords[2]
+	prompt := fmt.Sprintf(ideaGenerationString, keywords)
+	res, err := openAIRequest(250, prompt, 0.7, []string{"3."}, 2.0)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"ideas": "1." + res})
+}
+
+// text reminder
+type reminderRequest struct {
+	Time string `json:"time" binding:"required"`
+}
+
+func reminderHandler(c *gin.Context) {
+	var body reminderRequest
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
