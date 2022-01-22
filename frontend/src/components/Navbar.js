@@ -6,39 +6,6 @@ import { AiOutlineClose } from "react-icons/ai"
 import styled from "styled-components"
 import { FlexBox } from "./index"
 
-function Navbar() {
-    return (
-        <>
-            <CFlexBox>
-                <Features>
-                    <CHome>
-                        <RiHome2Fill size={20} />
-                    </CHome>
-                    <p>|</p>
-                    <FeatureButton>
-                        Idea Generator
-                    </FeatureButton>
-                    <p>|</p>
-                    <FeatureButton>
-                        Bug Analyzer
-                    </FeatureButton>
-                    <p>|</p>
-                    <FeatureButton>
-                        Tech Stack Generator
-                    </FeatureButton>
-                </Features>
-                <WindowsIcons>
-                    <GiSquare></GiSquare>
-                    <VscChromeMinimize></VscChromeMinimize>
-                    <AiOutlineClose></AiOutlineClose>
-                </WindowsIcons>
-            </CFlexBox>
-        </>
-    );
-}
-
-export default Navbar;
-
 const Features = styled(FlexBox)`
 align-items: stretch;
 `
@@ -49,9 +16,31 @@ background: transparent;
 border-width: 0px;
 padding-left: 20px;
 padding-right: 20px;
+background-color: ${props => props.selectedTab === 'home' && '#000000'};
 &:hover {
     background-color: #000000;
 }
+`
+const FeatureButton = styled.button`
+background: transparent;
+border-width: 0px;
+font-size: 16px;
+padding-left: 20px;
+padding-right: 20px;
+color: white;
+&:hover {
+    background-color: #000000;
+}
+`
+
+const Feature1 = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === 'feature1' && '#000000'};
+`
+const Feature2 = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === `feature2` && '#000000'};
+`
+const Feature3 = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === `feature3` && '#000000'};
 `
 
 const CFlexBox = styled(FlexBox)`
@@ -68,14 +57,36 @@ margin-right: 15px;
 color: white;
 `
 
-const FeatureButton = styled.button`
-background: transparent;
-border-width: 0px;
-font-size: 16px;
-padding-left: 20px;
-padding-right: 20px;
-color: white;
-&:hover {
-    background-color: #000000;
+function Navbar(props) {
+
+    return (
+        <>
+            <CFlexBox>
+                <Features>
+                    <CHome selectedTab={props.selectedTab}>
+                        <RiHome2Fill size={20} />
+                    </CHome>
+                    <p>|</p>
+                    <Feature1 selectedTab={props.selectedTab}>
+                        Idea Generator
+                    </Feature1>
+                    <p>|</p>
+                    <Feature2 selectedTab={props.selectedTab}>
+                        Bug Analyzer
+                    </Feature2>
+                    <p>|</p>
+                    <Feature3 selectedTab={props.selectedTab}>
+                        Tech Stack Generator
+                    </Feature3>
+                </Features>
+                <WindowsIcons>
+                    <GiSquare></GiSquare>
+                    <VscChromeMinimize></VscChromeMinimize>
+                    <AiOutlineClose></AiOutlineClose>
+                </WindowsIcons>
+            </CFlexBox>
+        </>
+    );
 }
-`
+
+export default Navbar;
