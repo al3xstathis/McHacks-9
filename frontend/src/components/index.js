@@ -9,3 +9,11 @@ export const FlexBox = styled(motion.div)`
 	flex-wrap: ${props => props.wrap || "nowrap"};
     ${props => props.fluid ? { width: '100%', flex: 1 } : {}}
 `
+
+export const Container = styled(FlexBox)`
+  background-color: grey;
+  box-shadow:0 0 0 1px black inset;
+  color: white;
+  height: 80vh;
+overflow: hidden;
+`

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router";
 import { CodeAnalyzer } from './CodeAnalyzer';
 import { IdeaGenerator } from './IdeaGenerator';
 import { Home } from './Home';
+import NameGenerator from "./NameGenerator";
 
 
 const Router = () => {
@@ -10,8 +11,8 @@ const Router = () => {
         <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/idea-generator" element={<IdeaGenerator />} />
-            <Route path="/name-generator" />
             <Route path="/code-analyzer" element={<CodeAnalyzer />} />
+            <Route path="/name-generator" element={<NameGenerator />} />
         </Routes>
     )
 }

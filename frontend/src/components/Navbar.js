@@ -49,6 +49,7 @@ justify-content: space-between;
 border: 1px solid black;
 align-items: stretch;
 background-color: #535652;
+height: 6.5vh;
 `
 
 const WindowsIcons = styled(FlexBox)`
