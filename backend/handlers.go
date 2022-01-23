@@ -52,6 +52,7 @@ func testHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"name": "test works"})
 }
 
@@ -82,6 +83,7 @@ func nameGeneratorHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"name": res})
 }
 
@@ -113,6 +115,7 @@ func ideaGeneratorHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"ideas": "1." + res})
 }
 
@@ -138,6 +141,7 @@ func reminderHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
@@ -151,6 +155,7 @@ func replySMSHandler(c *gin.Context) {
 		sendSMSTimeFormatted(10*time.Minute, "Here's your second reminder that your deadline is approaching!", from)
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
@@ -182,6 +187,7 @@ func codeAnalyzerHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"description": res})
 }
 
@@ -213,6 +219,7 @@ func fixBugsHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"fixed": res})
 }
 
@@ -242,6 +249,7 @@ func ffaHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"response": res})
 }
 
@@ -272,5 +280,11 @@ func chatbotHandler(c *gin.Context) {
 		return
 	}
 
+	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"response": res})
+}
+
+func enableCORS(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "https://hackmyhack.tech")
+	c.Header("Access-Control-Allow-Methods", "POST, OPTIONS")
 }
