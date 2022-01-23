@@ -8,10 +8,10 @@ import { NameGenerator } from "./NameGenerator";
 import { Reminder } from "./Reminder";
 
 
-const Router = () => {
+const Router = (props) => {
     return (
         <Routes>
-            <Route path="/" exact element={<Home />} />
+            <Route path="/" exact element={<Home tabChange={props.tabChange} />} />
             <Route path="/idea-generator" element={<IdeaGenerator />} />
             <Route path="/code-analyzer" element={<CodeAnalyzer />} />
             <Route path="/bug-analyzer" element={<BugAnalyzer />} />
