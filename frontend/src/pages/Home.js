@@ -78,8 +78,8 @@ export const Home = (props) => {
                 props.tabChange("reminder");
                 break;
             case "Chatbot":
-                navigate("chatbot");
-                props.tabChange("chatbot");
+                navigate("chat-bot");
+                props.tabChange("chat-bot");
                 break;
         }
     }
