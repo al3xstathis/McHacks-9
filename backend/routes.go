@@ -21,7 +21,9 @@ func setupRouter() *gin.Engine {
 
 	// CORS enabling
 	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
+	config.AllowWildcard = true
+	config.AllowOrigins = []string{"http://localhost/*", "https://hackmyhack.tech/*"}
+	config.AddAllowMethods("OPTIONS")
 	r.Use(cors.New(config))
 
 	return r
