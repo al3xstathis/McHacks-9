@@ -12,7 +12,7 @@ function App() {
     return (
         <>
             <Navbar selectedTab={selectedTab} tabChange={tabChange} />
-            <Router />
+            <Router tabChange={tabChange} />
         </>
     );
 }

@@ -7,20 +7,20 @@ import { BugAnalyzer } from './BugAnalyzer'
 import { NameGenerator } from "./NameGenerator";
 import { Reminder } from "./Reminder";
 import Egg from "./Egg";
-import {ChatBot} from "./ChatBot";
+import { ChatBot } from "./ChatBot";
 
 
-const Router = () => {
+const Router = (props) => {
     return (
         <Routes>
+            <Route path="/" exact element={<Home tabChange={props.tabChange} />} />
             <Route path="/idea-generator" element={<IdeaGenerator />} />
             <Route path="/code-analyzer" element={<CodeAnalyzer />} />
             <Route path="/bug-analyzer" element={<BugAnalyzer />} />
             <Route path="/name-generator" element={<NameGenerator />} />
-            <Route path="/egg" element={<Egg/>}/>
-            <Route path="/chat-bot" element={<ChatBot/>}/>
+            <Route path="/egg" element={<Egg />} />
+            <Route path="/chat-bot" element={<ChatBot />} />
             <Route path="/reminder" element={<Reminder />} />
-            <Route path="/" exact element={<Home />} />
         </Routes>
     )
 }

@@ -6,8 +6,8 @@ import { AiOutlineClose } from "react-icons/ai"
 import styled from "styled-components"
 import { FlexBox } from "./index"
 import { useNavigate } from "react-router-dom";
-import {GiEasterEgg} from "react-icons/gi";
-import {styles} from "../styles";
+import { GiEasterEgg } from "react-icons/gi";
+import { styles } from "../styles";
 
 const Features = styled(FlexBox)`
 align-items: stretch;
@@ -19,7 +19,7 @@ background: transparent;
 border-width: 0px;
 padding-left: 20px;
 padding-right: 20px;
-background-color: ${props => props.selectedTab === 'home' && styles.colors.black};
+background-color: ${props => props.selectedTab === '' && '#000000'};
 &:hover {
     background-color: ${styles.colors.black};
 }
@@ -31,7 +31,7 @@ background: transparent;
 border-width: 0px;
 padding-left: 20px;
 padding-right: 20px;
-background-color: ${props => props.selectedTab === 'home' && styles.colors.black};
+background-color: ${props => props.selectedTab === 'egg' && styles.colors.black};
 &:hover {
     background-color: #000000;
 }
