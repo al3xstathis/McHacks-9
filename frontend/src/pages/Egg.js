@@ -20,7 +20,7 @@ const Egg = () => {
         <>
             <Container
                 initial={{opacity: 0.8}}
-                animate={{opacity: 1}}
+                animate={{opacity: 0.95}}
                 transition={{duration: 0.5}}
                 direction={'column'}>
                 <div style={{maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%'}}>

@@ -1,5 +1,5 @@
 export const styles = {
     colors: {
-        black: "#373E40"
+        black: "#1f2324"
     }
 }

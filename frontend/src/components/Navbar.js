@@ -44,7 +44,7 @@ padding-left: 20px;
 padding-right: 20px;
 color: white;
 &:hover {
-    background-color: #000000;
+    background-color: ${styles.colors.black};
 }
 `
 
@@ -71,7 +71,7 @@ const CFlexBox = styled(FlexBox)`
 justify-content: space-between;
 border: 1px solid ${styles.colors.black};
 align-items: stretch;
-background-color: #535652;
+background-color: #3e413e;
 height: 5vh;
 `
 

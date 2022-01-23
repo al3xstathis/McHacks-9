@@ -128,7 +128,7 @@ export const CodeAnalyzer = () => {
     return (
         <Container
             initial={{ opacity: 0.8 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 0.95 }}
             transition={{ duration: 0.5 }}
             direction={'column'}>
             <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
@@ -181,6 +181,8 @@ const InputContainer = styled(FlexBox)`
   margin-inside: 20px;
   height: 10vh;
   color: white;
+    border-top: 1px solid white;
+
 `
 
 const Text = styled.p`

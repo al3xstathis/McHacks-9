@@ -18,7 +18,7 @@ export const IdeaGenerator = () => {
         },
         {
             sender: "bot",
-            message: "Enter 3 keywords keywords separated by a commas that have to do with your idea."
+            message: "Enter 3 keywords separated by a commas that have to do with your idea."
         },
         {
             sender: "bot",
@@ -86,7 +86,7 @@ export const IdeaGenerator = () => {
     return (
         <Container
             initial={{ opacity: 0.8 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 0.95 }}
             transition={{ duration: 0.5 }}
             direction={'column'}>
             <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
@@ -139,6 +139,8 @@ const InputContainer = styled(FlexBox)`
   box-shadow:0 0 0 1px ${styles.colors.black} inset;
   margin-inside: 20px;
   height: 10vh;
+    border-top: 1px solid white;
+
 `
 
 const Text = styled.p`

@@ -14,7 +14,7 @@ export const BugAnalyzer = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot",
-            message: "This is your bug fixer assistant."
+            message: "This is your bug fixing assistant."
         },
         {
             sender: "bot",
@@ -128,7 +128,7 @@ export const BugAnalyzer = () => {
     return (
         <Container
             initial={{ opacity: 0.8 }}
-            animate={{ opacity: 1 }}
+            animate={{opacity: 0.95}}
             transition={{ duration: 0.5 }}
             direction={'column'}>
             <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>

@@ -11,7 +11,7 @@ export const Reminder = () => {
 
     const [payload, setPayload] = useState({
         number: '',
-        time: moment().format('DD/MM/YYYY H:mm')
+        time: moment().startOf('hour').format('DD/MM/YYYY H:mm')
     })
     const [disabled, setDisabled] = useState(false)
     const [messages, setMessages] = useState([
@@ -22,6 +22,10 @@ export const Reminder = () => {
         {
             sender: "bot",
             message: "Leave your phone number and when you have to present. We'll make sure to remind you 30 minutes before."
+        },
+        {
+            sender: "bot",
+            message: "Powered by Twilio."
         }
     ])
 
@@ -69,7 +73,7 @@ export const Reminder = () => {
     return (
         <Container
             initial={{opacity: 0.8}}
-            animate={{opacity: 1}}
+            animate={{opacity: 0.95}}
             transition={{duration: 0.5}}
             direction={'column'}>
             <div style={{maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%'}}>
@@ -90,7 +94,7 @@ export const Reminder = () => {
                         ...payload,
                         number: e.target.value
                     })}
-                           variant="unstyled" placeholder={"5141010101"}/>
+                           variant="unstyled" placeholder={"514#######"}/>
                     <Time type={'date-time-local'} onChange={(e) => setPayload({
                         ...payload,
                         time: e.target.value
@@ -127,6 +131,8 @@ const InputContainer = styled(FlexBox)`
   box-shadow:0 0 0 1px ${styles.colors.black} inset;
   margin-inside: 20px;
   height: 10vh;
+    border-top: 1px solid white;
+
 `
 
 const Text = styled.p`
