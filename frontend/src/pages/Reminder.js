@@ -18,15 +18,15 @@ export const Reminder = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot@davinci",
-            message: "You might need a reminder to present your Hackathon project."
+            message: "You might need a reminder for when you need to present or submit your Hackathon project."
         },
         {
             sender: "bot@davinci",
-            message: "Leave your phone number and when you have to present. We'll make sure to remind you 30 minutes before."
+            message: "Leave your phone number, and the date/time of your deadline. We'll make sure to remind you 30 minutes before."
         },
         {
             sender: "bot@davinci",
-            message: "Powered by Twilio."
+            message: "Powered by Twilio. Please enter the time in this format: '23/01/2022 14:30'"
         }
     ])
 
@@ -38,8 +38,21 @@ export const Reminder = () => {
         }
     }, [disabled])
 
-    const submit = async () => {
+    const submit = () => {
         if (!disabled) {
+            if (payload.number === '') {
+                const message = {
+                    sender: 'bot@davinci',
+                    message: "Please enter a target phone number."
+                }
+
+                setMessages([
+                    ...messages, message
+                ])
+
+                return
+            }
+
             const message = {
                 sender: 'user@McHacks/reminder',
                 message: `${payload.number}` + ` | ` + `${payload.time}`
@@ -47,16 +60,15 @@ export const Reminder = () => {
             setMessages([
                 ...messages, message
             ])
-            setReminder()
+
             setDisabled(true)
+            setReminder({ ...payload, time: moment(payload.time, "DD/MM/YYYY HH:mm").format() });
         }
     }
 
-
-    const setReminder = () => {
+    const setReminder = (body) => {
         setLoading(true)
-        API.post(`/reminder`, payload).then((res) => {
-            console.log(res)
+        API.post(`/reminder`, body).then((res) => {
             const message = {
                 sender: 'bot@davinci',
                 message: 'Added your reminder.'
@@ -66,7 +78,7 @@ export const Reminder = () => {
             ])
             setPayload({
                 number: '',
-                time: moment().format('DD/MM/YYYY H:mm')
+                time: moment().format('DD/MM/YYYY HH:mm')
             })
             setLoading(false)
         })
@@ -89,8 +101,8 @@ export const Reminder = () => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} </Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '95%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>

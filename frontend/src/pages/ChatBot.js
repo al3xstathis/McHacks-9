@@ -20,7 +20,7 @@ export const ChatBot = () => {
         },
         {
             sender: "bot@davinci",
-            message: "Write anything and i'll answer you!"
+            message: "Write anything and I'll answer you!"
         }
     ])
 
@@ -66,7 +66,6 @@ export const ChatBot = () => {
     const findName = () => {
         setLoading(true)
         API.post(`/chatbot`, payload).then((res) => {
-            console.log(res)
             const message = {
                 sender: 'bot@davinci',
                 message: res.data.response
@@ -99,8 +98,8 @@ export const ChatBot = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '95%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>

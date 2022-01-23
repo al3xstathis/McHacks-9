@@ -7,11 +7,11 @@ const Egg = () => {
     const [messages] = useState([
         {
             sender: "bot@davinci",
-            message: "We hid an easter egg somewhere in this app."
+            message: "We hid an easter egg somewhere in this website."
         },
         {
             sender: "bot@davinci",
-            message: "Take your time and look around you might be able to find something cool."
+            message: "Take your time and look around, you might be able to find something cool."
         }
     ])
 

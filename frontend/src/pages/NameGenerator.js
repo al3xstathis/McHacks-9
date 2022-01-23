@@ -16,11 +16,11 @@ export const NameGenerator = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot@davinci",
-            message: "This is your name generating assistant."
+            message: "This is the name generating program."
         },
         {
             sender: "bot@davinci",
-            message: "Enter a description of your project and we'll give you a name."
+            message: "Enter a description of your project and I'll give you a cool name!"
         }
     ])
 
@@ -77,7 +77,6 @@ export const NameGenerator = () => {
     const findName = () => {
         setLoading(true)
         API.post(`/nameGenerator`, payload).then((res) => {
-            console.log(res)
             const message = {
                 sender: 'bot@davinci',
                 message: res.data.name
@@ -109,8 +108,8 @@ export const NameGenerator = () => {
                     {messages.map((idea, id) =>
                         <FlexBox
                             key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '95%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
@@ -120,7 +119,7 @@ export const NameGenerator = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={loading? "Loading..." :"Add an Idea"} />
+                    variant="unstyled" placeholder={loading ? "Loading..." : "Input an idea description"} />
             </InputContainer>
         </Container>
     )

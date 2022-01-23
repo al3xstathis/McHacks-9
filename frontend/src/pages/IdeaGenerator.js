@@ -15,11 +15,11 @@ export const IdeaGenerator = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot@davinci",
-            message: "This is your idea generating assistant."
+            message: "This is the idea generating program."
         },
         {
             sender: "bot@davinci",
-            message: "Enter 3 keywords separated by a commas that have to do with your idea."
+            message: "Enter 3 keywords separated by commas that relate to your idea."
         },
         {
             sender: "bot@davinci",
@@ -65,7 +65,6 @@ export const IdeaGenerator = () => {
     const findName = () => {
         setLoading(true)
         API.post(`/ideaGenerator`, payload).then((res) => {
-            console.log(res)
             const message = {
                 sender: 'bot@davinci',
                 message: res.data.ideas
@@ -102,8 +101,8 @@ export const IdeaGenerator = () => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '95%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
@@ -113,9 +112,9 @@ export const IdeaGenerator = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={loading ? "Loading..." : "Add an Idea"} />
+                    variant="unstyled" placeholder={loading ? "Loading..." : "Input some keywords"} />
             </InputContainer>
-        </Container>
+        </Container >
     )
 }
 

@@ -10,11 +10,11 @@ export const Home = (props) => {
     const messages = [
         {
             sender: "bot@davinci",
-            message: "Welcome to HackMyHack!"
+            message: "Welcome to HackMyHack! I'm Davinci."
         },
         {
             sender: "bot@davinci",
-            message: "I will be assisting you through your Hackathon by providing you with a variety of tools that will help you win 1st place."
+            message: "I'll be assisting you throughout your Hackathon by providing you with a variety of powerful tools that will help supercharge your experience."
         },
         {
             sender: "bot@davinci",
@@ -26,27 +26,27 @@ export const Home = (props) => {
         {
             name: "Idea Generator",
             input: "3 keywords",
-            output: "I will output a Hackathon idea based on your keywords"
+            output: "I'll output a Hackathon idea based on your keywords"
         },
         {
             name: "Name Generator",
             input: "Description of your Hackathon project",
-            output: "I will output a Hackathon name based on your description"
+            output: "I'll output a Hackathon name based on your description"
         },
         {
             name: "Bug Fixer",
-            input: "First input - language of your code, second input - code with comments explaining what it is supposed to do",
-            output: "I will output the fixed code"
+            input: "Coding language | Buggy code with comments explaining what it is supposed to do",
+            output: "I'll output the fixed code"
         },
         {
             name: "Code Analyzer",
-            input: "First input - language of your code, second input - code",
-            output: "I will explain what the code is doing"
+            input: "Coding language | Code",
+            output: "I'll explain what the code is doing"
         },
         {
             name: "Reminder",
-            input: "First input - phone number, second input - date and time of presentation",
-            output: "I will send you an SMS 30 minutes before your presentation"
+            input: "Phone number | Date and time of deadline",
+            output: "I'll send you an SMS 30 minutes before your deadline"
         },
         {
             name: "Chatbot",
@@ -95,8 +95,8 @@ export const Home = (props) => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '95%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>

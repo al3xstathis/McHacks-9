@@ -15,20 +15,19 @@ export const BugAnalyzer = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot@davinci",
-            message: "This is your bug fixing assistant."
+            message: "This is the bug fixing program."
         },
         {
             sender: "bot@davinci",
-            message: "I will find the bug in your code and fix it."
+            message: "I'll find the bug in your code and fix it."
         },
         {
             sender: "bot@davinci",
-            message: "Enter the language of the code you wish to fix."
+            message: "First, enter the language of the code you wish to fix."
         }
     ])
 
     const submitLanguage = () => {
-        console.log("language")
         const message = {
             sender: 'user@McHacks/bugfixer',
             message: input
@@ -46,7 +45,7 @@ export const BugAnalyzer = () => {
         if (valueType === "code") {
             const message = {
                 sender: 'bot@davinci',
-                message: 'Enter the code you wish to fix with comments (max number of characters: 2500).'
+                message: 'Second, enter the code you wish to fix, with comments explaining what you want it to do (max number of characters: 2500).'
             }
             setMessages([
                 ...messages, message
@@ -100,7 +99,6 @@ export const BugAnalyzer = () => {
         setLoading(true)
 
         API.post(`/fixBugs`, payload).then((res) => {
-            console.log(res)
             let message = {
                 sender: 'bot@davinci',
                 message: res.data.fixed //fixed
@@ -112,8 +110,8 @@ export const BugAnalyzer = () => {
             setMessages([
                 ...messages, message
             ])
+            setValueType('language')
             setLoading(false)
-
         })
     }
 
@@ -146,8 +144,8 @@ export const BugAnalyzer = () => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '95%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
@@ -157,7 +155,7 @@ export const BugAnalyzer = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={loading? "Loading..." :"Add an Idea"} />
+                    variant="unstyled" placeholder={loading ? "Loading..." : (valueType === 'language' ? "Input a coding language" : "Input some commented code")} />
             </InputContainer>
         </Container>
     )

@@ -15,20 +15,19 @@ export const CodeAnalyzer = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot@davinci",
-            message: "This is your code analyzer assistant."
+            message: "This is the code analyzer program."
         },
         {
             sender: "bot@davinci",
-            message: "I will explain to you any code you don't understand."
+            message: "I'll explain to you any code you don't understand."
         },
         {
             sender: "bot@davinci",
-            message: "Enter the language of the code you wish to analyze."
+            message: "First, enter the language of the code you wish to analyze/understand."
         }
     ])
 
     const submitLanguage = () => {
-        console.log("language")
         const message = {
             sender: 'user@McHacks/codeanalyzer',
             message: input
@@ -46,7 +45,7 @@ export const CodeAnalyzer = () => {
         if (valueType === "code") {
             const message = {
                 sender: 'bot@davinci',
-                message: 'Enter the code you wish to analyze (max number of characters: 2500).'
+                message: 'Second, enter the code you wish to analyze/understand (max number of characters: 2500).'
             }
             setMessages([
                 ...messages, message
@@ -99,7 +98,6 @@ export const CodeAnalyzer = () => {
     const analyzeCode = () => {
         setLoading(true)
         API.post(`/analyzeCode`, payload).then((res) => {
-            console.log(res)
             let message = {
                 sender: 'bot@davinci',
                 message: res.data.description
@@ -111,6 +109,7 @@ export const CodeAnalyzer = () => {
             setMessages([
                 ...messages, message
             ])
+            setValueType('language')
             setLoading(false)
         })
     }
@@ -144,8 +143,8 @@ export const CodeAnalyzer = () => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start', whiteSpace: 'nowrap' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '95%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
@@ -155,7 +154,7 @@ export const CodeAnalyzer = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={loading? "Loading...":"Add an Idea"} />
+                    variant="unstyled" placeholder={loading ? "Loading..." : (valueType === 'language' ? "Input a coding language" : "Input some commented code")} />
             </InputContainer>
         </Container>
     )
