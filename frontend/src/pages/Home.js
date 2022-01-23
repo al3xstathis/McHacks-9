@@ -150,6 +150,7 @@ border-collapse: collapse;
 `
 
 const TD = styled.td`
+padding-left: 10px;
 border-style: dotted; 
 border-color: white; 
 border-collapse: collapse;
