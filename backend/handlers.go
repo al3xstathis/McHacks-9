@@ -272,5 +272,7 @@ func chatbotHandler(c *gin.Context) {
 		return
 	}
 
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Methods", "POST, OPTIONS")
 	c.JSON(http.StatusOK, gin.H{"response": res})
 }
