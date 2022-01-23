@@ -12,22 +12,22 @@ export const CodeAnalyzer = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot",
-            message: "This is your bug analyzer assistant."
+            message: "This is your code analyzer assistant."
         },
         {
             sender: "bot",
-            message: "I will find the bug in your code."
+            message: "I will explain to you any code you don't understand."
         },
         {
             sender: "bot",
-            message: "Enter the language of the code you wish to debug."
+            message: "Enter the language of the code you wish to analyze."
         }
     ])
 
     const submitLanguage = () => {
         console.log("language")
         const message = {
-            sender: 'user@McHacks/namegenerator',
+            sender: 'user@McHacks/codeanalyzer',
             message: input
         }
         setMessages([
@@ -54,7 +54,7 @@ export const CodeAnalyzer = () => {
     const submitCode = () => {
         console.log("code")
         const message = {
-            sender: 'user@McHacks/namegenerator',
+            sender: 'user@McHacks/codeanalyzer',
             message: input
         }
         setMessages([

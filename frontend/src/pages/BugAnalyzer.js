@@ -12,22 +12,22 @@ export const BugAnalyzer = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot",
-            message: "This is your code analyzer assistant."
+            message: "This is your bug fixer assistant."
         },
         {
             sender: "bot",
-            message: "I will explain to you any code you don't understand."
+            message: "I will find the bug in your code and fix it."
         },
         {
             sender: "bot",
-            message: "Enter the language of the code you wish to analyze."
+            message: "Enter the language of the code you wish to fix."
         }
     ])
 
     const submitLanguage = () => {
         console.log("language")
         const message = {
-            sender: 'user@McHacks/namegenerator',
+            sender: 'user@McHacks/bugfixer',
             message: input
         }
         setMessages([
@@ -43,7 +43,7 @@ export const BugAnalyzer = () => {
         if (valueType === "code") {
             const message = {
                 sender: 'bot',
-                message: 'Enter the code you wish to analyze (max number of characters: 2500).'
+                message: 'Enter the code you wish to fix (max number of characters: 2500).'
             }
             setMessages([
                 ...messages, message
@@ -54,7 +54,7 @@ export const BugAnalyzer = () => {
     const submitCode = () => {
         console.log("code")
         const message = {
-            sender: 'user@McHacks/namegenerator',
+            sender: 'user@McHacks/bugfixer',
             message: input
         }
         setMessages([
@@ -91,7 +91,7 @@ export const BugAnalyzer = () => {
             console.log(res)
             let message = {
                 sender: 'bot',
-                message: res.data.name
+                message: res.data.name //fixed
             }
             setMessages([
                 ...messages, message

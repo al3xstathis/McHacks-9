@@ -94,7 +94,7 @@ function Navbar(props) {
                     </CodeAnalyzer >
                     <p>|</p>
                     <BugAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("bug-analyzer")}>
-                        Bug Analyzer
+                        Bug Fixer
                     </BugAnalyzer >
                     <p>|</p>
                     <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>

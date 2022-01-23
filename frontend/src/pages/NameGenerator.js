@@ -121,6 +121,7 @@ const Input = styled.input`
   border: none;
   padding: 20px;
   width: 100%;
+  color: white;
   &:focus {
     outline: none;
   }
