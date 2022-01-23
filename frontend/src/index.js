@@ -3,9 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "react-query";
+import {initializeApp} from "@firebase/app";
+import {firebaseConfig} from "./config";
+import {getAnalytics} from "@firebase/analytics";
 
 const queryClient = new QueryClient()
 
+
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 ReactDOM.render(
     <QueryClientProvider client={queryClient}>

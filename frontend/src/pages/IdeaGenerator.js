@@ -3,6 +3,7 @@ import { Container, FlexBox } from "../components";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import styled from "styled-components";
 import API from "../api/api";
+import {styles} from "../styles";
 
 export const IdeaGenerator = () => {
 
@@ -135,7 +136,7 @@ const Input = styled.input`
 
 const InputContainer = styled(FlexBox)`
   width: 100%;
-  box-shadow:0 0 0 1px black inset;
+  box-shadow:0 0 0 1px ${styles.colors.black} inset;
   margin-inside: 20px;
   height: 10vh;
 `

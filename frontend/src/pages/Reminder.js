@@ -5,6 +5,7 @@ import styled from "styled-components";
 import API from "../api/api";
 import moment from 'moment'
 import {UnstyledButton} from "@mantine/core";
+import {styles} from "../styles";
 
 export const Reminder = () => {
 
@@ -123,7 +124,7 @@ const Input = styled.input`
 
 const InputContainer = styled(FlexBox)`
   width: 100%;
-  box-shadow:0 0 0 1px black inset;
+  box-shadow:0 0 0 1px ${styles.colors.black} inset;
   margin-inside: 20px;
   height: 10vh;
 `

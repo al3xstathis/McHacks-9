@@ -13,7 +13,6 @@ import {ChatBot} from "./ChatBot";
 const Router = () => {
     return (
         <Routes>
-            <Route path="/" exact element={<Home />} />
             <Route path="/idea-generator" element={<IdeaGenerator />} />
             <Route path="/code-analyzer" element={<CodeAnalyzer />} />
             <Route path="/bug-analyzer" element={<BugAnalyzer />} />
@@ -21,6 +20,7 @@ const Router = () => {
             <Route path="/egg" element={<Egg/>}/>
             <Route path="/chat-bot" element={<ChatBot/>}/>
             <Route path="/reminder" element={<Reminder />} />
+            <Route path="/" exact element={<Home />} />
         </Routes>
     )
 }

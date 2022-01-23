@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebase/app": "^0.7.14",
     "@mantine/core": "^3.6.2",
     "@mantine/dates": "^3.6.2",
     "@mantine/hooks": "^3.6.2",
@@ -30,6 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "deploy": "react-scripts build && firebase deploy",
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -43,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@firebase/analytics": "^0.7.5"
   }
 }

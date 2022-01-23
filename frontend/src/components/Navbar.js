@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { FlexBox } from "./index"
 import { useNavigate } from "react-router-dom";
 import {GiEasterEgg} from "react-icons/gi";
+import {styles} from "../styles";
 
 const Features = styled(FlexBox)`
 align-items: stretch;
@@ -18,9 +19,9 @@ background: transparent;
 border-width: 0px;
 padding-left: 20px;
 padding-right: 20px;
-background-color: ${props => props.selectedTab === 'home' && '#000000'};
+background-color: ${props => props.selectedTab === 'home' && styles.colors.black};
 &:hover {
-    background-color: #000000;
+    background-color: ${styles.colors.black};
 }
 `
 const CEgg = styled.button`
@@ -30,7 +31,7 @@ background: transparent;
 border-width: 0px;
 padding-left: 20px;
 padding-right: 20px;
-background-color: ${props => props.selectedTab === 'home' && '#000000'};
+background-color: ${props => props.selectedTab === 'home' && styles.colors.black};
 &:hover {
     background-color: #000000;
 }
@@ -48,27 +49,27 @@ color: white;
 `
 
 const IdeaGenerator = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === 'idea-generator' && '#000000'};
+background-color: ${props => props.selectedTab === 'idea-generator' && styles.colors.black};
 `
 const NameGenerator = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === `name-generator` && '#000000'};
+background-color: ${props => props.selectedTab === `name-generator` && styles.colors.black};
 `
 const CodeAnalyzer = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === `code-analyzer` && '#000000'};
+background-color: ${props => props.selectedTab === `code-analyzer` && styles.colors.black};
 `
 const BugAnalyzer = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === `bug-analyzer` && '#000000'};
+background-color: ${props => props.selectedTab === `bug-analyzer` && styles.colors.black};
 `
 const Reminder = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === `reminder` && '#000000'};
+background-color: ${props => props.selectedTab === `reminder` && styles.colors.black};
 `
 const ChatBot = styled(FeatureButton)`
-background-color: ${props => props.selectedTab === `chat-bot` && '#000000'};
+background-color: ${props => props.selectedTab === `chat-bot` && styles.colors.black};
 `
 
 const CFlexBox = styled(FlexBox)`
 justify-content: space-between;
-border: 1px solid black;
+border: 1px solid ${styles.colors.black};
 align-items: stretch;
 background-color: #535652;
 height: 5vh;
