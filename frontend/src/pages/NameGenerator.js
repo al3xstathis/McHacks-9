@@ -99,8 +99,6 @@ export const NameGenerator = () => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
                             key={id}>
                             <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
                             <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
