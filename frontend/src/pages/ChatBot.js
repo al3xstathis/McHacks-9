@@ -1,33 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { Container, FlexBox } from "../components";
-import { HiOutlineChevronRight } from "react-icons/hi";
-import styled from "styled-components";
+import styled from 'styled-components'
+import { HiOutlineChevronRight } from 'react-icons/hi'
 import API from "../api/api";
+import { motion } from "framer-motion";
 
-export const IdeaGenerator = () => {
 
+export const ChatBot = () => {
     const [input, setInput] = useState('')
+    const [receiveValue, setReceiveValue] = useState('keywords')
     const [payload, setPayload] = useState({})
     const [disabled, setDisabled] = useState(false)
-
     const [messages, setMessages] = useState([
         {
             sender: "bot",
-            message: "This is your idea generating assistant."
+            message: "Want to have a chat?"
         },
         {
             sender: "bot",
-            message: "Enter 3 keywords keywords separated by a commas that have to do with your idea."
-        },
-        {
-            sender: "bot",
-            message: "Here's an example:"
-        },
-        {
-            sender: "bot",
-            message: "train, wait times, algorithm"
+            message: "Write anything and i'll answer you!"
         }
     ])
+
+    useEffect(() => {
+        if (!!payload.chat) {
+            findName()
+        }
+    }, [payload.chat])
 
     useEffect(() => {
         if(disabled) {
@@ -38,9 +37,18 @@ export const IdeaGenerator = () => {
     }, [disabled])
 
 
-    const submitKeywords = () => {
+    const handleKeypress = (e) => {
+        //it triggers by pressing the enter key
+        if (e.keyCode === 13 && disabled === false) {
+            submit()
+            setDisabled(true)
+        }
+    };
+
+    const submit = () => {
+
         const message = {
-            sender: 'user@McHacks/ideagenerator',
+            sender: 'user@McHacks9/chat-bot',
             message: input
         }
         setMessages([
@@ -48,24 +56,17 @@ export const IdeaGenerator = () => {
         ])
         setPayload({
             ...payload,
-            keywords: input.split(', ')
+            chat: input
         })
         setInput('')
     }
 
-    useEffect(() => {
-        if (!!payload.keywords) {
-            findName()
-        }
-    }, [payload])
-
-
     const findName = () => {
-        API.post(`/ideaGenerator`, payload).then((res) => {
+        API.post(`/chatbot`, payload).then((res) => {
             console.log(res)
             const message = {
                 sender: 'bot',
-                message: res.data.ideas
+                message: res.data.response
             }
             setMessages([
                 ...messages, message
@@ -74,13 +75,6 @@ export const IdeaGenerator = () => {
         })
     }
 
-    const handleKeypress = (e) => {
-        //it triggers by pressing the enter key
-        if (e.keyCode === 13 && disabled === false) {
-            submitKeywords()
-            setDisabled(true)
-        }
-    };
 
     return (
         <Container
@@ -90,9 +84,12 @@ export const IdeaGenerator = () => {
             direction={'column'}>
             <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
                 <Messages id={'messages'} fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'}
-                    style={{ paddingBottom: 20 }}>
+                          style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
-                        <FlexBox key={id}>
+                        <FlexBox
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            key={id}>
                             <Text style={{display: 'flex', alignSelf: 'flex-start'}}>{idea.sender} ></Text>
                             <Text style={{maxWidth: '75%', whiteSpace: 'pre-line'}}>{idea.message}</Text>
                         </FlexBox>
@@ -104,13 +101,11 @@ export const IdeaGenerator = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={"Add an Idea"} />
+                       variant="unstyled" placeholder={"Enter a prompt"} />
             </InputContainer>
         </Container>
     )
 }
-
-export default IdeaGenerator
 
 
 const Messages = styled(FlexBox)`
@@ -121,7 +116,6 @@ const Input = styled.input`
   background-color: transparent;
   border: none;
   padding: 20px;
-  color: white;
   width: 100%;
   color: white;
   &:focus {
@@ -140,7 +134,7 @@ const InputContainer = styled(FlexBox)`
   height: 10vh;
 `
 
-const Text = styled.p`
+const Text = styled(motion.p)`
   margin-left: 16px;
   font-size: 18px;
 `

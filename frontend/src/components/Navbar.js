@@ -62,6 +62,9 @@ background-color: ${props => props.selectedTab === `bug-analyzer` && '#000000'};
 const Reminder = styled(FeatureButton)`
 background-color: ${props => props.selectedTab === `reminder` && '#000000'};
 `
+const ChatBot = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === `chat-bot` && '#000000'};
+`
 
 const CFlexBox = styled(FlexBox)`
 justify-content: space-between;
@@ -108,6 +111,9 @@ function Navbar(props) {
                     <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>
                         Reminder
                     </Reminder>
+                    <ChatBot selectedTab={props.selectedTab} onClick={() => handleChange("chat-bot")}>
+                        Chat Bot
+                    </ChatBot>
                     <CEgg selectedTab={props.selectedTab} onClick={() => handleChange("egg")}>
                         <GiEasterEgg size={20} />
                     </CEgg>

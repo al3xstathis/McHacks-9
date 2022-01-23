@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Container, FlexBox } from "../components";
-import { HiOutlineChevronRight } from "react-icons/hi";
+import React, {useEffect, useState} from 'react';
+import {Container, FlexBox} from "../components";
+import {HiOutlineChevronRight} from "react-icons/hi";
 import styled from "styled-components";
 import API from "../api/api";
 import moment from 'moment'
-import { UnstyledButton } from "@mantine/core";
+import {UnstyledButton} from "@mantine/core";
 
 export const Reminder = () => {
 
@@ -12,6 +12,7 @@ export const Reminder = () => {
         number: '',
         time: moment().format('DD/MM/YYYY H:mm')
     })
+    const [disabled, setDisabled] = useState(false)
     const [messages, setMessages] = useState([
         {
             sender: "bot",
@@ -23,18 +24,27 @@ export const Reminder = () => {
         }
     ])
 
+    useEffect(() => {
+        if (disabled) {
+            setTimeout(() => {
+                setDisabled(false)
+            }, 3000)
+        }
+    }, [disabled])
 
     const submit = async () => {
-        const message = {
-            sender: 'user@McHacks/reminder',
-            message: `${payload.number}` + ` | ` + `${payload.time}`
+        if (!disabled) {
+            const message = {
+                sender: 'user@McHacks/reminder',
+                message: `${payload.number}` + ` | ` + `${payload.time}`
+            }
+            setMessages([
+                ...messages, message
+            ])
+            setReminder()
+            setDisabled(true)
         }
-        setMessages([
-            ...messages, message
-        ])
-        setReminder()
     }
-
 
 
     const setReminder = () => {
@@ -52,37 +62,38 @@ export const Reminder = () => {
                 time: moment().format('DD/MM/YYYY H:mm')
             })
         })
+
     }
 
     return (
         <Container
-            initial={{ opacity: 0.8 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            initial={{opacity: 0.8}}
+            animate={{opacity: 1}}
+            transition={{duration: 0.5}}
             direction={'column'}>
-            <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
+            <div style={{maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%'}}>
                 <Messages id={'messages'} fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'}
-                    style={{ paddingBottom: 20 }}>
+                          style={{paddingBottom: 20}}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} </Text>
-                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
+                            <Text style={{display: 'flex', alignSelf: 'flex-start'}}>{idea.sender} ></Text>
+                            <Text style={{maxWidth: '75%', whiteSpace: 'pre-line'}}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
             </div>
             <InputContainer align={'center'} justify={'space-between'}>
                 <FlexBox>
-                    <HiOutlineChevronRight style={{ color: 'white', width: '40px', fontSize: 30, paddingLeft: 20 }} />
+                    <HiOutlineChevronRight style={{color: 'white', width: '40px', fontSize: 30, paddingLeft: 20}}/>
                     <Input maxLength={10} value={payload.number} onChange={e => setPayload({
                         ...payload,
                         number: e.target.value
                     })}
-                        variant="unstyled" placeholder={"5141010101"} />
+                           variant="unstyled" placeholder={"5141010101"}/>
                     <Time type={'date-time-local'} onChange={(e) => setPayload({
                         ...payload,
                         time: e.target.value
-                    })} value={payload.time} />
+                    })} value={payload.time}/>
                 </FlexBox>
                 <Button onClick={() => submit()}>Submit</Button>
             </InputContainer>
