@@ -50,7 +50,7 @@ export const NameGenerator = () => {
 
     const submitDescription = () => {
         const message = {
-            sender: 'user@McHacks9',
+            sender: 'user@McHacks9/namegenerator',
             message: input
         }
         setMessages([
