@@ -9,6 +9,7 @@ export const CodeAnalyzer = () => {
     const [input, setInput] = useState('')
     const [language, setLanguage] = useState('')
     const [disabled, setDisabled] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [valueType, setValueType] = useState('language')
     const [payload, setPayload] = useState({})
     const [messages, setMessages] = useState([
@@ -96,6 +97,7 @@ export const CodeAnalyzer = () => {
     }, [payload])
 
     const analyzeCode = () => {
+        setLoading(true)
         API.post(`/analyzeCode`, payload).then((res) => {
             console.log(res)
             let message = {
@@ -109,6 +111,7 @@ export const CodeAnalyzer = () => {
             setMessages([
                 ...messages, message
             ])
+            setLoading(false)
         })
     }
 
@@ -147,7 +150,7 @@ export const CodeAnalyzer = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={"Add an Idea"} />
+                    variant="unstyled" placeholder={loading? "Loading...":"Add an Idea"} />
             </InputContainer>
         </Container>
     )

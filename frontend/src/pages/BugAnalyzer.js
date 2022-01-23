@@ -8,6 +8,7 @@ import {styles} from "../styles";
 export const BugAnalyzer = () => {
     const [input, setInput] = useState('')
     const [language, setLanguage] = useState('')
+    const [loading, setLoading] = useState(false)
     const [disabled, setDisabled] = useState(false)
     const [valueType, setValueType] = useState('language')
     const [payload, setPayload] = useState({})
@@ -96,6 +97,8 @@ export const BugAnalyzer = () => {
     }, [disabled])
 
     const analyzeCode = () => {
+        setLoading(true)
+
         API.post(`/fixBugs`, payload).then((res) => {
             console.log(res)
             let message = {
@@ -109,6 +112,8 @@ export const BugAnalyzer = () => {
             setMessages([
                 ...messages, message
             ])
+            setLoading(false)
+
         })
     }
 
@@ -147,7 +152,7 @@ export const BugAnalyzer = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={"Add an Idea"} />
+                    variant="unstyled" placeholder={loading? "Loading..." :"Add an Idea"} />
             </InputContainer>
         </Container>
     )

@@ -9,6 +9,7 @@ export const IdeaGenerator = () => {
 
     const [input, setInput] = useState('')
     const [payload, setPayload] = useState({})
+    const [loading, setLoading] = useState(false)
     const [disabled, setDisabled] = useState(false)
 
     const [messages, setMessages] = useState([
@@ -62,6 +63,7 @@ export const IdeaGenerator = () => {
 
 
     const findName = () => {
+        setLoading(true)
         API.post(`/ideaGenerator`, payload).then((res) => {
             console.log(res)
             const message = {
@@ -72,6 +74,7 @@ export const IdeaGenerator = () => {
                 ...messages, message
             ])
             setPayload({})
+            setLoading(false)
         })
     }
 
@@ -105,7 +108,7 @@ export const IdeaGenerator = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={"Add an Idea"} />
+                    variant="unstyled" placeholder={loading ? "Loading...":"Add an Idea"} />
             </InputContainer>
         </Container>
     )

@@ -14,6 +14,7 @@ export const Reminder = () => {
         time: moment().startOf('hour').format('DD/MM/YYYY H:mm')
     })
     const [disabled, setDisabled] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [messages, setMessages] = useState([
         {
             sender: "bot@davinci",
@@ -53,6 +54,7 @@ export const Reminder = () => {
 
 
     const setReminder = () => {
+        setLoading(true)
         API.post(`/reminder`, payload).then((res) => {
             console.log(res)
             const message = {
@@ -66,6 +68,7 @@ export const Reminder = () => {
                 number: '',
                 time: moment().format('DD/MM/YYYY H:mm')
             })
+            setLoading(false)
         })
 
     }
@@ -94,7 +97,7 @@ export const Reminder = () => {
                         ...payload,
                         number: e.target.value
                     })}
-                           variant="unstyled" placeholder={"514#######"}/>
+                           variant="unstyled" placeholder={loading? "Loading...":"514#######"}/>
                     <Time type={'date-time-local'} onChange={(e) => setPayload({
                         ...payload,
                         time: e.target.value
