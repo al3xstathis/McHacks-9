@@ -43,7 +43,7 @@ export const BugAnalyzer = () => {
         if (valueType === "code") {
             const message = {
                 sender: 'bot',
-                message: 'Enter the code you wish to fix (max number of characters: 2500).'
+                message: 'Enter the code you wish to fix with comments (max number of characters: 2500).'
             }
             setMessages([
                 ...messages, message
