@@ -135,8 +135,8 @@ export const CodeAnalyzer = () => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{display: 'flex', alignSelf: 'flex-start'}}>{idea.sender} ></Text>
-                            <Text style={{maxWidth: '75%', whiteSpace: 'pre-line'}}>{idea.message}</Text>
+                            <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} ></Text>
+                            <Text style={{ maxWidth: '75%', whiteSpace: 'pre-line' }}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>

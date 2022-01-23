@@ -15,6 +15,7 @@ func setupRouter() *gin.Engine {
 	r.POST("/analyzeCode", codeAnalyzerHandler)
 	r.POST("/fixBugs", fixBugsHandler)
 	r.POST("/ffa", ffaHandler)
+	r.POST("/chatbot", chatbotHandler)
 
 	// CORS enabling
 	r.Use(func(c *gin.Context) {
