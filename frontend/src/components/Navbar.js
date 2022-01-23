@@ -43,6 +43,9 @@ background-color: ${props => props.selectedTab === `name-generator` && '#000000'
 const CodeAnalyzer = styled(FeatureButton)`
 background-color: ${props => props.selectedTab === `code-analyzer` && '#000000'};
 `
+const BugAnalyzer = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === `bug-analyzer` && '#000000'};
+`
 const Reminder = styled(FeatureButton)`
 background-color: ${props => props.selectedTab === `reminder` && '#000000'};
 `
@@ -89,6 +92,10 @@ function Navbar(props) {
                     <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("code-analyzer")}>
                         Code Analyzer
                     </CodeAnalyzer >
+                    <p>|</p>
+                    <BugAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("bug-analyzer")}>
+                        Bug Analyzer
+                    </BugAnalyzer >
                     <p>|</p>
                     <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>
                         Reminder

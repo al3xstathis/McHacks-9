@@ -4,7 +4,7 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import styled from "styled-components";
 import API from "../api/api";
 
-export const CodeAnalyzer = () => {
+export const BugAnalyzer = () => {
     const [input, setInput] = useState('')
     const [language, setLanguage] = useState('')
     const [valueType, setValueType] = useState('language')
@@ -12,15 +12,15 @@ export const CodeAnalyzer = () => {
     const [messages, setMessages] = useState([
         {
             sender: "bot",
-            message: "This is your bug analyzer assistant."
+            message: "This is your code analyzer assistant."
         },
         {
             sender: "bot",
-            message: "I will find the bug in your code."
+            message: "I will explain to you any code you don't understand."
         },
         {
             sender: "bot",
-            message: "Enter the language of the code you wish to debug."
+            message: "Enter the language of the code you wish to analyze."
         }
     ])
 
@@ -142,7 +142,7 @@ export const CodeAnalyzer = () => {
     )
 };
 
-export default CodeAnalyzer
+export default BugAnalyzer
 
 
 const Messages = styled(FlexBox)`
