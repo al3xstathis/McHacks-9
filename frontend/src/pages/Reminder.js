@@ -6,7 +6,7 @@ import API from "../api/api";
 import moment from 'moment'
 import {UnstyledButton} from "@mantine/core";
 
-export const Reminder = () => {
+const Reminder = () => {
 
     const [payload, setPayload] = useState({
         number: '',

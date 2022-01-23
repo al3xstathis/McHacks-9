@@ -86,6 +86,9 @@ function Navbar(props) {
                     <NameGenerator selectedTab={props.selectedTab} onClick={() => handleChange("name-generator")}>
                         Name Generator
                     </NameGenerator>
+                    <BugAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("bug-analyzer")}>
+                        Bug Fixer
+                    </BugAnalyzer >
                     <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("code-analyzer")}>
                         Code Analyzer
                     </CodeAnalyzer >
