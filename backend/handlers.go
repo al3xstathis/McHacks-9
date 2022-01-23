@@ -28,7 +28,7 @@ func openAIRequest(maxTokens int, prompt string, temperature float32, stopSeqs [
 		PresencePenalty: presencePenalty,
 	}
 
-	resp, err := c.CreateCompletion(context.Background(), "ada", req)
+	resp, err := c.CreateCompletion(context.Background(), "davinci", req)
 	if err != nil {
 		log.Println(err)
 		return "", err
@@ -105,7 +105,8 @@ func ideaGeneratorHandler(c *gin.Context) {
 
 // text reminder
 type reminderRequest struct {
-	Time string `json:"time" binding:"required"`
+	Time   string `json:"time" binding:"required"`
+	Number string `json:"number" binding:"required"`
 }
 
 func reminderHandler(c *gin.Context) {
@@ -117,5 +118,38 @@ func reminderHandler(c *gin.Context) {
 		return
 	}
 
+	sendSMSTime(body.Time, reminderString, "+1"+body.Number)
+
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
+}
+
+// code analyzer
+type codeAnalyzerRequest struct {
+	Code     string `json:"code" binding:"required"`
+	Language string `json:"language" binding:"required"`
+}
+
+func codeAnalyzerHandler(c *gin.Context) {
+	var body codeAnalyzerRequest
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
+		return
+	}
+
+	if len(body.Language) > 2500 || len(body.Code) > 3000 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
+		log.Println("request too long")
+		return
+	}
+
+	prompt := fmt.Sprintf(codeAnalyzerString, body.Code, body.Language)
+	res, err := openAIRequest(450, prompt, 0.0, []string{}, 0.0)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"description": res})
 }

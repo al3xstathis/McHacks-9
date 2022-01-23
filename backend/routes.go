@@ -12,6 +12,7 @@ func setupRouter() *gin.Engine {
 	r.POST("/nameGenerator", nameGeneratorHandler)
 	r.POST("/ideaGenerator", ideaGeneratorHandler)
 	r.POST("/reminder", reminderHandler)
+	r.POST("/analyzeCode", codeAnalyzerHandler)
 
 	// CORS enabling
 	r.Use(func(c *gin.Context) {

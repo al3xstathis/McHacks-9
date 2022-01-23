@@ -62,8 +62,11 @@ func sendSMSTime(timeString string, body string, number string) error {
 	if err != nil {
 		return err
 	}
+
 	currentTime := time.Now()
-	timeAfter := t.Sub(currentTime)
+	timeAfter := (t.Sub(currentTime)) - 30*time.Minute
+
 	time.AfterFunc(timeAfter, func() { sendSMS(body, number) })
+
 	return nil
 }
