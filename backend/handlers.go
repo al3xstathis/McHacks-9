@@ -141,6 +141,19 @@ func reminderHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
+// replying SMSs
+func replySMSHandler(c *gin.Context) {
+	body := c.PostForm("Body")
+	from := c.PostForm("From")
+
+	if body == "yes" || body == "Yes" {
+		sendSMS("Got it! We will send you another reminder in 10 minutes", from)
+		sendSMSTimeFormatted(10*time.Minute, "Here's your second reminder that your deadline is approaching!", from)
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "success"})
+}
+
 // code analyzer
 type codeAnalyzerRequest struct {
 	Code     string `json:"code" binding:"required"`
