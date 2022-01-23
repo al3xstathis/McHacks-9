@@ -87,11 +87,11 @@ export const CodeAnalyzer = () => {
     }, [payload])
 
     const analyzeCode = () => {
-        API.post(`/analyzeCode`, payload).then((res) => {
+        API.post(`/test`, payload).then((res) => {
             console.log(res)
             let message = {
                 sender: 'bot',
-                message: res.data.description
+                message: res.data.name
             }
             setMessages([
                 ...messages, message
