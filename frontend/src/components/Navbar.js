@@ -6,11 +6,24 @@ import { AiOutlineClose } from "react-icons/ai"
 import styled from "styled-components"
 import { FlexBox } from "./index"
 import { useNavigate } from "react-router-dom";
+import {GiEasterEgg} from "react-icons/gi";
 
 const Features = styled(FlexBox)`
 align-items: stretch;
 `
 const CHome = styled.button`
+padding-top: 3px;
+color: white;
+background: transparent;
+border-width: 0px;
+padding-left: 20px;
+padding-right: 20px;
+background-color: ${props => props.selectedTab === 'home' && '#000000'};
+&:hover {
+    background-color: #000000;
+}
+`
+const CEgg = styled.button`
 padding-top: 3px;
 color: white;
 background: transparent;
@@ -95,6 +108,9 @@ function Navbar(props) {
                     <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>
                         Reminder
                     </Reminder>
+                    <CEgg selectedTab={props.selectedTab} onClick={() => handleChange("egg")}>
+                        <GiEasterEgg size={20} />
+                    </CEgg>
                 </Features>
                 <WindowsIcons>
                     <GiSquare></GiSquare>
