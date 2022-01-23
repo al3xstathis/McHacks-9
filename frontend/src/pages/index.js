@@ -6,6 +6,8 @@ import { Home } from './Home';
 import { BugAnalyzer } from './BugAnalyzer'
 import { NameGenerator } from "./NameGenerator";
 import { Reminder } from "./Reminder";
+import Egg from "./Egg";
+import { ChatBot } from "./ChatBot";
 
 
 const Router = (props) => {
@@ -16,6 +18,8 @@ const Router = (props) => {
             <Route path="/code-analyzer" element={<CodeAnalyzer />} />
             <Route path="/bug-analyzer" element={<BugAnalyzer />} />
             <Route path="/name-generator" element={<NameGenerator />} />
+            <Route path="/egg" element={<Egg />} />
+            <Route path="/chat-bot" element={<ChatBot />} />
             <Route path="/reminder" element={<Reminder />} />
         </Routes>
     )

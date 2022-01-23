@@ -4,10 +4,12 @@ import styled from 'styled-components'
 import { HiOutlineChevronRight } from 'react-icons/hi'
 import API from "../api/api";
 import { motion } from "framer-motion";
+import {styles} from "../styles";
 
 
 export const NameGenerator = () => {
     const [input, setInput] = useState('')
+    const [disabled, setDisabled] = useState(false)
     const [receiveValue, setReceiveValue] = useState('keywords')
     const [payload, setPayload] = useState({})
     const [messages, setMessages] = useState([
@@ -22,6 +24,14 @@ export const NameGenerator = () => {
     ])
 
     useEffect(() => {
+        if(disabled) {
+            setTimeout(() => {
+                setDisabled(false)
+            }, 3000)
+        }
+    }, [disabled])
+
+    useEffect(() => {
         if (receiveValue === 'description') {
             const message = {
                 sender: 'bot',
@@ -34,7 +44,7 @@ export const NameGenerator = () => {
     }, [receiveValue])
 
     useEffect(() => {
-        if (!!payload.description) {
+        if (!!payload.description ) {
             findName()
         }
     }, [payload])
@@ -42,9 +52,9 @@ export const NameGenerator = () => {
 
     const handleKeypress = (e) => {
         //it triggers by pressing the enter key
-        if (e.keyCode === 13) {
+        if (e.keyCode === 13 && disabled === false) {
             submitDescription()
-
+            setDisabled(true)
         }
     };
 
@@ -131,7 +141,7 @@ const Input = styled.input`
 
 const InputContainer = styled(FlexBox)`
   width: 100%;
-  box-shadow:0 0 0 1px black inset;
+  box-shadow:0 0 0 1px ${styles.colors.black} inset;
   margin-inside: 20px;
   height: 10vh;
 `

@@ -3,10 +3,12 @@ import { Container, FlexBox } from "../components";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import styled from "styled-components";
 import API from "../api/api";
+import {styles} from "../styles";
 
 export const CodeAnalyzer = () => {
     const [input, setInput] = useState('')
     const [language, setLanguage] = useState('')
+    const [disabled, setDisabled] = useState(false)
     const [valueType, setValueType] = useState('language')
     const [payload, setPayload] = useState({})
     const [messages, setMessages] = useState([
@@ -52,7 +54,6 @@ export const CodeAnalyzer = () => {
     }, [valueType])
 
     const submitCode = () => {
-        console.log("code")
         const message = {
             sender: 'user@McHacks/codeanalyzer',
             message: input
@@ -81,17 +82,25 @@ export const CodeAnalyzer = () => {
     }
 
     useEffect(() => {
+        if(disabled) {
+            setTimeout(() => {
+                setDisabled(false)
+            }, 3000)
+        }
+    }, [disabled])
+
+    useEffect(() => {
         if (!!payload.language && !!payload.code) {
             analyzeCode()
         }
     }, [payload])
 
     const analyzeCode = () => {
-        API.post(`/test`, payload).then((res) => {
+        API.post(`/analyzeCode`, payload).then((res) => {
             console.log(res)
             let message = {
                 sender: 'bot',
-                message: res.data.name
+                message: res.data.description
             }
             setMessages([
                 ...messages, message
@@ -105,11 +114,13 @@ export const CodeAnalyzer = () => {
 
     const handleKeypress = (e) => {
         //it triggers by pressing the enter key
-        if (e.keyCode === 13) {
+        if (e.keyCode === 13 && disabled === false) {
             if (valueType === "language") {
                 submitLanguage();
+                setDisabled(true)
             } else {
                 submitCode();
+                setDisabled(true)
             }
         }
     };
@@ -166,7 +177,7 @@ const Input = styled.input`
 
 const InputContainer = styled(FlexBox)`
   width: 100%;
-  box-shadow:0 0 0 1px black inset;
+  box-shadow:0 0 0 1px ${styles.colors.black} inset;
   margin-inside: 20px;
   height: 10vh;
   color: white;

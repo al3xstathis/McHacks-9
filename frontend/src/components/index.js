@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { motion } from 'framer-motion';
+import {styles} from "../styles";
 
 export const FlexBox = styled(motion.div)`
 	display: flex;
@@ -11,8 +12,8 @@ export const FlexBox = styled(motion.div)`
 `
 
 export const Container = styled(FlexBox)`
-  background-color: black;
-  box-shadow:0 0 0 1px black inset;
+  background-color: ${styles.colors.black};
+  box-shadow:0 0 0 1px ${styles.colors.black} inset;
   color: white;
   height: 80vh;
 overflow: hidden;

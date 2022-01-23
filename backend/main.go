@@ -10,13 +10,13 @@ import (
 var APIKeys = [3]string{}
 
 func main() {
-	getEnvVariables()
+	port := getEnvVariables()
 
 	r := setupRouter()
-	r.Run(":80")
+	r.Run(":" + port)
 }
 
-func getEnvVariables() {
+func getEnvVariables() string {
 	err := godotenv.Load("./.env")
 	if err != nil {
 		log.Fatal("Could not find/load .env file", err)
@@ -37,7 +37,14 @@ func getEnvVariables() {
 		log.Fatal("Could not find API_KEY_3")
 	}
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	APIKeys[0] = k1
 	APIKeys[1] = k2
 	APIKeys[2] = k3
+
+	return port
 }
