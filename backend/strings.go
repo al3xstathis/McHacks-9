@@ -4,7 +4,7 @@ const nameGenerationString = "A product name generator that uses the product des
 
 const ideaGenerationString = "Brainstorm some hackathon coding project ideas combining %s:\n\n1."
 
-const reminderString = "This is your reminder that your project submission deadline is within 30 minutes from now! Goodluck :)!"
+const reminderString = "This is your reminder that your project submission deadline is within 30 minutes from now! Goodluck :)! Reply yes to get a reminder in 10 minutes."
 
 const codeAnalyzerString = "%s\n\nHere's what the above code (written in %s) does:"
 

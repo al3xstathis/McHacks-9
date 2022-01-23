@@ -69,7 +69,7 @@ func nameGeneratorHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Description) > 150 {
+	if len([]rune(body.Description)) > 1000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long or short, only 3 keywords please"})
 		log.Println("request too long or short")
 		return
@@ -141,6 +141,19 @@ func reminderHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
+// replying SMSs
+func replySMSHandler(c *gin.Context) {
+	body := c.PostForm("Body")
+	from := c.PostForm("From")
+
+	if body == "yes" || body == "Yes" {
+		sendSMS("Got it! We will send you another reminder in 10 minutes", from)
+		sendSMSTimeFormatted(10*time.Minute, "Here's your second reminder that your deadline is approaching!", from)
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "success"})
+}
+
 // code analyzer
 type codeAnalyzerRequest struct {
 	Code     string `json:"code" binding:"required"`
@@ -156,7 +169,7 @@ func codeAnalyzerHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Language) > 5 || len(body.Code) > 3000 {
+	if len(body.Language) > 100 || len([]rune(body.Code)) > 3000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
@@ -187,7 +200,7 @@ func fixBugsHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Language) > 5 || len(body.Code) > 3000 {
+	if len(body.Language) > 100 || len([]rune(body.Code)) > 3000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
@@ -217,7 +230,7 @@ func ffaHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Prompt) > 1500 {
+	if len([]rune(body.Prompt)) > 1500 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
@@ -246,7 +259,7 @@ func chatbotHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Chat) > 1500 {
+	if len([]rune(body.Chat)) > 1500 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
