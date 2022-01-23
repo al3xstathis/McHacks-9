@@ -11,6 +11,7 @@ export const ChatBot = () => {
     const [input, setInput] = useState('')
     const [receiveValue, setReceiveValue] = useState('keywords')
     const [payload, setPayload] = useState({})
+    const [loading, setLoading] = useState(false)
     const [disabled, setDisabled] = useState(false)
     const [messages, setMessages] = useState([
         {
@@ -63,6 +64,7 @@ export const ChatBot = () => {
     }
 
     const findName = () => {
+        setLoading(true)
         API.post(`/chatbot`, payload).then((res) => {
             console.log(res)
             const message = {
@@ -73,6 +75,7 @@ export const ChatBot = () => {
                 ...messages, message
             ])
             setPayload({})
+            setLoading(false)
         })
     }
 
@@ -107,7 +110,7 @@ export const ChatBot = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={"Enter a prompt"} />
+                    variant="unstyled" placeholder={loading ? "Loading..." : "Enter a prompt"} />
             </InputContainer>
         </Container>
     )

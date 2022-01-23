@@ -9,6 +9,7 @@ import { styles } from "../styles";
 
 export const NameGenerator = () => {
     const [input, setInput] = useState('')
+    const [loading, setLoading] = useState(false)
     const [disabled, setDisabled] = useState(false)
     const [receiveValue, setReceiveValue] = useState('keywords')
     const [payload, setPayload] = useState({})
@@ -74,7 +75,8 @@ export const NameGenerator = () => {
     }
 
     const findName = () => {
-        API.post(`/test`, payload).then((res) => {
+        setLoading(true)
+        API.post(`/nameGenerator`, payload).then((res) => {
             console.log(res)
             const message = {
                 sender: 'bot@davinci',
@@ -84,6 +86,8 @@ export const NameGenerator = () => {
                 ...messages, message
             ])
             setPayload({})
+            setLoading(false)
+
         })
     }
 
@@ -116,7 +120,7 @@ export const NameGenerator = () => {
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                    variant="unstyled" placeholder={"Add an Idea"} />
+                    variant="unstyled" placeholder={loading? "Loading..." :"Add an Idea"} />
             </InputContainer>
         </Container>
     )
