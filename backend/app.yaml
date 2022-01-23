@@ -3,4 +3,4 @@ runtime: go116
 handlers:
 - url: /chatbot
   http_headers:
-    Access-Control-Allow-Origin: *
+    Access-Control-Allow-Origin: '*'
