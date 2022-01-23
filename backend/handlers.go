@@ -94,7 +94,7 @@ func ideaGeneratorHandler(c *gin.Context) {
 
 	keywords := body.Keywords[0] + ", " + body.Keywords[1] + " and " + body.Keywords[2]
 	prompt := fmt.Sprintf(ideaGenerationString, keywords)
-	res, err := openAIRequest(250, prompt, 0.7, []string{"3."}, 2.0)
+	res, err := openAIRequest(250, prompt, 0.7, []string{"4."}, 2.0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return
@@ -118,7 +118,12 @@ func reminderHandler(c *gin.Context) {
 		return
 	}
 
-	sendSMSTime(body.Time, reminderString, "+1"+body.Number)
+	err = sendSMSTime(body.Time, reminderString, "+1"+body.Number)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
@@ -145,11 +150,59 @@ func codeAnalyzerHandler(c *gin.Context) {
 	}
 
 	prompt := fmt.Sprintf(codeAnalyzerString, body.Code, body.Language)
-	res, err := openAIRequest(450, prompt, 0.0, []string{}, 0.0)
+	res, err := openAIRequest(250, prompt, 0.0, []string{}, 0.0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"description": res})
+}
+
+// bug fixer
+type fixBugsRequest struct {
+	Code     string `json:"code" binding:"required"`
+	Language string `json:"language" binding:"required"`
+}
+
+func fixBugsHandler(c *gin.Context) {
+	var body fixBugsRequest
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
+		return
+	}
+
+	prompt := fmt.Sprintf(fixBugsString, body.Language, body.Code, body.Language)
+	res, err := openAIRequest(250, prompt, 0.0, []string{}, 0.0)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"fixed": res})
+}
+
+// free for all anything sent it passed onto openAI API
+type ffaRequest struct {
+	Prompt string `json:"prompt" binding:"required"`
+}
+
+func ffaHandler(c *gin.Context) {
+	var body ffaRequest
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
+		return
+	}
+
+	res, err := openAIRequest(200, body.Prompt, 0.5, []string{}, 0.0)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"response": res})
 }
