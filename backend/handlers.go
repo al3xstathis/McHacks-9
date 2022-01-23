@@ -285,6 +285,6 @@ func chatbotHandler(c *gin.Context) {
 }
 
 func enableCORS(c *gin.Context) {
-	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Origin", "https://hackmyhack.tech")
 	c.Header("Access-Control-Allow-Methods", "POST, OPTIONS")
 }
