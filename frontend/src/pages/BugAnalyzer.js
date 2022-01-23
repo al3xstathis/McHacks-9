@@ -4,71 +4,113 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import styled from "styled-components";
 import API from "../api/api";
 
-export const IdeaGenerator = () => {
-
+export const BugAnalyzer = () => {
     const [input, setInput] = useState('')
+    const [language, setLanguage] = useState('')
+    const [valueType, setValueType] = useState('language')
     const [payload, setPayload] = useState({})
     const [messages, setMessages] = useState([
         {
             sender: "bot",
-            message: "This is your idea generating assistant."
+            message: "This is your bug fixer assistant."
         },
         {
             sender: "bot",
-            message: "Enter 3 keywords keywords separated by a commas that have to do with your idea."
+            message: "I will find the bug in your code and fix it."
         },
         {
             sender: "bot",
-            message: "Here's an example:"
-        },
-        {
-            sender: "bot",
-            message: "train, wait times, algorithm"
+            message: "Enter the language of the code you wish to fix."
         }
     ])
 
-
-    const submitKeywords = () => {
+    const submitLanguage = () => {
+        console.log("language")
         const message = {
-            sender: 'user@McHacks/ideagenerator',
+            sender: 'user@McHacks/bugfixer',
             message: input
         }
         setMessages([
             ...messages, message
         ])
+
+        setLanguage(input);
+        setValueType("code");
+        setInput("");
+    }
+
+    useEffect(() => {
+        if (valueType === "code") {
+            const message = {
+                sender: 'bot',
+                message: 'Enter the code you wish to fix (max number of characters: 2500).'
+            }
+            setMessages([
+                ...messages, message
+            ])
+        }
+    }, [valueType])
+
+    const submitCode = () => {
+        console.log("code")
+        const message = {
+            sender: 'user@McHacks/bugfixer',
+            message: input
+        }
+        setMessages([
+            ...messages, message
+        ])
+
+        if (input.length > 2500) {
+            const message = {
+                sender: 'bot',
+                message: 'Please make sure your code is less than 2500 characters. Try again.'
+            }
+            setMessages([
+                ...messages, message
+            ])
+            return;
+        }
+
         setPayload({
-            ...payload,
-            keywords: input.split(', ')
+            language: language,
+            code: input
         })
+
         setInput('')
     }
 
     useEffect(() => {
-        if (!!payload.keywords) {
-            findName()
+        if (!!payload.language && !!payload.code) {
+            analyzeCode()
         }
     }, [payload])
 
-
-    const findName = () => {
-        console.log(payload)
-        API.post(`/ideaGenerator`, payload).then((res) => {
+    const analyzeCode = () => {
+        API.post(`/test`, payload).then((res) => {
             console.log(res)
-            const message = {
+            let message = {
                 sender: 'bot',
-                message: res.data.ideas
+                message: res.data.name //fixed
             }
             setMessages([
                 ...messages, message
             ])
             setPayload({})
+            setMessages([
+                ...messages, message
+            ])
         })
     }
 
     const handleKeypress = (e) => {
         //it triggers by pressing the enter key
         if (e.keyCode === 13) {
-            submitKeywords()
+            if (valueType === "language") {
+                submitLanguage();
+            } else {
+                submitCode();
+            }
         }
     };
 
@@ -83,8 +125,8 @@ export const IdeaGenerator = () => {
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text style={{display: 'flex', alignSelf: 'flex-start'}}>{idea.sender} ></Text>
-                            <Text style={{maxWidth: '75%', whiteSpace: 'pre-line'}}>{idea.message}</Text>
+                            <Text>{idea.sender}</Text>
+                            <Text>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
@@ -98,9 +140,9 @@ export const IdeaGenerator = () => {
             </InputContainer>
         </Container>
     )
-}
+};
 
-export default IdeaGenerator
+export default BugAnalyzer
 
 
 const Messages = styled(FlexBox)`
@@ -111,7 +153,6 @@ const Input = styled.input`
   background-color: transparent;
   border: none;
   padding: 20px;
-  color: white;
   width: 100%;
   color: white;
   &:focus {
@@ -128,6 +169,7 @@ const InputContainer = styled(FlexBox)`
   box-shadow:0 0 0 1px black inset;
   margin-inside: 20px;
   height: 10vh;
+  color: white;
 `
 
 const Text = styled.p`

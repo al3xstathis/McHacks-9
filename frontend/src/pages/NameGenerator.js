@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import {Container, FlexBox} from "../components";
+import React, { useEffect, useState } from 'react'
+import { Container, FlexBox } from "../components";
 import styled from 'styled-components'
-import {HiOutlineChevronRight} from 'react-icons/hi'
+import { HiOutlineChevronRight } from 'react-icons/hi'
 import API from "../api/api";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 
 const NameGenerator = () => {
@@ -80,30 +80,30 @@ const NameGenerator = () => {
 
     return (
         <Container
-            initial={{opacity: 0.8}}
-            animate={{opacity: 1}}
-            transition={{duration: 0.5}}
+            initial={{ opacity: 0.8 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
             direction={'column'}>
-            <div style={{maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%'}}>
+            <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
                 <Messages id={'messages'} fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'}
-                          style={{paddingBottom: 20}}>
+                    style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox
                             initial={{opacity: 0}}
                             animate={{opacity: 1}}
                                  key={id}>
-                            <Text style={{display: 'flex', alignSelf: 'flex-start'}}>{idea.sender} ></Text>
-                            <Text style={{maxWidth: '75%', whiteSpace: 'pre-line'}}>{idea.message}</Text>
+                            <Text>{idea.sender} ></Text>
+                            <Text>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
             </div>
             <InputContainer align={'center'} justify={'flex-start'}>
-                <HiOutlineChevronRight style={{color: 'white', width: '40px', fontSize: 30, paddingLeft: 20}}/>
+                <HiOutlineChevronRight style={{ color: 'white', width: '40px', fontSize: 30, paddingLeft: 20 }} />
                 <Input onKeyDown={(e) => {
                     handleKeypress(e)
                 }} value={input} onChange={e => setInput(e.target.value)}
-                       variant="unstyled" placeholder={"Add an Idea"}/>
+                    variant="unstyled" placeholder={"Add an Idea"} />
             </InputContainer>
         </Container>
     )

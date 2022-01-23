@@ -11,7 +11,7 @@ export const FlexBox = styled(motion.div)`
 `
 
 export const Container = styled(FlexBox)`
-  background-color: grey;
+  background-color: black;
   box-shadow:0 0 0 1px black inset;
   color: white;
   height: 80vh;
