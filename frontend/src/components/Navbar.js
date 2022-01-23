@@ -19,7 +19,7 @@ background: transparent;
 border-width: 0px;
 padding-left: 20px;
 padding-right: 20px;
-background-color: ${props => props.selectedTab === '' && '#000000'};
+background-color: ${props => props.selectedTab === '' && styles.colors.black};
 &:hover {
     background-color: ${styles.colors.black};
 }
@@ -33,7 +33,7 @@ padding-left: 20px;
 padding-right: 20px;
 background-color: ${props => props.selectedTab === 'egg' && styles.colors.black};
 &:hover {
-    background-color: #000000;
+    background-color: ${styles.colors.black};
 }
 `
 const FeatureButton = styled.button`
