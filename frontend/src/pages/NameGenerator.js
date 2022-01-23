@@ -6,7 +6,7 @@ import API from "../api/api";
 import { motion } from "framer-motion";
 
 
-const NameGenerator = () => {
+export const NameGenerator = () => {
     const [input, setInput] = useState('')
     const [receiveValue, setReceiveValue] = useState('keywords')
     const [payload, setPayload] = useState({})
@@ -108,8 +108,6 @@ const NameGenerator = () => {
         </Container>
     )
 }
-
-export default NameGenerator
 
 
 const Messages = styled(FlexBox)`

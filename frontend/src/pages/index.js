@@ -4,8 +4,8 @@ import { CodeAnalyzer } from './CodeAnalyzer';
 import { IdeaGenerator } from './IdeaGenerator';
 import { Home } from './Home';
 import { BugAnalyzer } from './BugAnalyzer'
-import NameGenerator from "./NameGenerator";
-import Reminder from "./Reminder";
+import { NameGenerator } from "./NameGenerator";
+import { Reminder } from "./Reminder";
 
 
 const Router = () => {
