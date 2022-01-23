@@ -87,7 +87,7 @@ export const Home = (props) => {
     return (
         <Container
             initial={{ opacity: 0.8 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 0.95 }}
             transition={{ duration: 0.5 }}
             direction={'column'}>
             <div style={{ maxHeight: '70vh', height: '70vh', width: '100%' }}>
@@ -101,7 +101,7 @@ export const Home = (props) => {
                     )}
                 </Messages>
             </div>
-            <Table>
+            <Table style={{width: '100%'}}>
                 <thead>
                     <tr>
                         <TH>
@@ -113,7 +113,7 @@ export const Home = (props) => {
                 </thead >
                 <tbody>
                     {tableInfo.map((idea, id) =>
-                        <tr key={id}>
+                        <tr style={{height: '50px'}} key={id}>
                             <TD><Button onClick={() => handleClick(idea.name)}>{idea.name}</Button></TD>
                             <TD>{idea.input}</TD>
                             <TD> {idea.output}</TD>
@@ -129,7 +129,6 @@ export const Home = (props) => {
 const Messages = styled(FlexBox)`
 `
 const Table = styled.table`
-margin: 15px;
 border-style: dotted; 
 border-color: white; 
 border-collapse: collapse;
