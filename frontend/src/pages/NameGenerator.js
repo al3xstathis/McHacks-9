@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { HiOutlineChevronRight } from 'react-icons/hi'
 import API from "../api/api";
 import { motion } from "framer-motion";
-import {styles} from "../styles";
+import { styles } from "../styles";
 
 
 export const NameGenerator = () => {
@@ -24,7 +24,7 @@ export const NameGenerator = () => {
     ])
 
     useEffect(() => {
-        if(disabled) {
+        if (disabled) {
             setTimeout(() => {
                 setDisabled(false)
             }, 3000)
@@ -44,7 +44,7 @@ export const NameGenerator = () => {
     }, [receiveValue])
 
     useEffect(() => {
-        if (!!payload.description ) {
+        if (!!payload.description) {
             findName()
         }
     }, [payload])
@@ -88,13 +88,18 @@ export const NameGenerator = () => {
     }
 
 
+    useEffect(() => {
+        var elem = document.getElementById('scroll');
+        elem.scrollTop = elem.scrollHeight;
+    }, [messages])
+
     return (
         <Container
             initial={{ opacity: 0.8 }}
             animate={{ opacity: 0.95 }}
             transition={{ duration: 0.5 }}
             direction={'column'}>
-            <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
+            <div id="scroll" style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
                 <Messages id={'messages'} fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'}
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>

@@ -3,7 +3,7 @@ import { Container, FlexBox } from "../components";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import styled from "styled-components";
 import API from "../api/api";
-import {styles} from "../styles";
+import { styles } from "../styles";
 
 export const CodeAnalyzer = () => {
     const [input, setInput] = useState('')
@@ -82,7 +82,7 @@ export const CodeAnalyzer = () => {
     }
 
     useEffect(() => {
-        if(disabled) {
+        if (disabled) {
             setTimeout(() => {
                 setDisabled(false)
             }, 3000)
@@ -125,13 +125,18 @@ export const CodeAnalyzer = () => {
         }
     };
 
+    useEffect(() => {
+        var elem = document.getElementById('scroll');
+        elem.scrollTop = elem.scrollHeight;
+    }, [messages])
+
     return (
         <Container
             initial={{ opacity: 0.8 }}
             animate={{ opacity: 0.95 }}
             transition={{ duration: 0.5 }}
             direction={'column'}>
-            <div style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
+            <div id="scroll" style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
                 <Messages id={'messages'} fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'}
                     style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Container, FlexBox} from "../components";
-import {HiOutlineChevronRight} from "react-icons/hi";
+import React, { useEffect, useState } from 'react';
+import { Container, FlexBox } from "../components";
+import { HiOutlineChevronRight } from "react-icons/hi";
 import styled from "styled-components";
 import API from "../api/api";
 import moment from 'moment'
-import {UnstyledButton} from "@mantine/core";
-import {styles} from "../styles";
+import { UnstyledButton } from "@mantine/core";
+import { styles } from "../styles";
 
 export const Reminder = () => {
 
@@ -70,15 +70,20 @@ export const Reminder = () => {
 
     }
 
+    useEffect(() => {
+        var elem = document.getElementById('scroll');
+        elem.scrollTop = elem.scrollHeight;
+    }, [messages])
+
     return (
         <Container
-            initial={{opacity: 0.8}}
-            animate={{opacity: 0.95}}
-            transition={{duration: 0.5}}
+            initial={{ opacity: 0.8 }}
+            animate={{ opacity: 0.95 }}
+            transition={{ duration: 0.5 }}
             direction={'column'}>
-            <div style={{maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%'}}>
+            <div id="scroll" style={{ maxHeight: '70vh', height: '70vh', overflowY: 'scroll', width: '100%' }}>
                 <Messages id={'messages'} fluid={"true"} direction={'column'} justify={'flex-end'} align={'flex-start'}
-                          style={{paddingBottom: 20}}>
+                    style={{ paddingBottom: 20 }}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
                             <Text style={{ display: 'flex', alignSelf: 'flex-start' }}>{idea.sender} </Text>
@@ -89,16 +94,16 @@ export const Reminder = () => {
             </div>
             <InputContainer align={'center'} justify={'space-between'}>
                 <FlexBox>
-                    <HiOutlineChevronRight style={{color: 'white', width: '40px', fontSize: 30, paddingLeft: 20}}/>
+                    <HiOutlineChevronRight style={{ color: 'white', width: '40px', fontSize: 30, paddingLeft: 20 }} />
                     <Input maxLength={10} value={payload.number} onChange={e => setPayload({
                         ...payload,
                         number: e.target.value
                     })}
-                           variant="unstyled" placeholder={"514#######"}/>
+                        variant="unstyled" placeholder={"514#######"} />
                     <Time type={'date-time-local'} onChange={(e) => setPayload({
                         ...payload,
                         time: e.target.value
-                    })} value={payload.time}/>
+                    })} value={payload.time} />
                 </FlexBox>
                 <Button onClick={() => submit()}>Submit</Button>
             </InputContainer>
