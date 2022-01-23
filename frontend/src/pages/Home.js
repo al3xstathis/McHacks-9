@@ -101,7 +101,7 @@ export const Home = (props) => {
                     )}
                 </Messages>
             </div>
-            <Table style={{width: '100%'}}>
+            <Table style={{ width: '100%' }}>
                 <thead>
                     <tr>
                         <TH>
@@ -113,7 +113,7 @@ export const Home = (props) => {
                 </thead >
                 <tbody>
                     {tableInfo.map((idea, id) =>
-                        <tr style={{height: '50px'}} key={id}>
+                        <tr style={{ height: '50px' }} key={id}>
                             <TD><Button onClick={() => handleClick(idea.name)}>{idea.name}</Button></TD>
                             <TD>{idea.input}</TD>
                             <TD> {idea.output}</TD>
@@ -135,6 +135,9 @@ border-collapse: collapse;
 `
 
 const Button = styled.button`
+&:hover {
+    color:#05960e;
+}
 text-align: left;
 background: transparent;
 color: white;
