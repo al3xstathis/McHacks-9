@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { RiHome2Fill } from "react-icons/ri";
 import { GiSquare } from "react-icons/gi"
 import { VscChromeMinimize } from "react-icons/vsc"
@@ -8,6 +8,60 @@ import { FlexBox } from "./index"
 import { useNavigate } from "react-router-dom";
 import { GiEasterEgg } from "react-icons/gi";
 import { styles } from "../styles";
+import {useHotkeys} from "@mantine/hooks";
+
+const tabs = [
+    '', 'idea-generator', 'name-generator', 'bug-analyzer', 'code-analyzer', 'reminder', 'chat-bot', 'egg'
+]
+
+function Navbar(props) {
+    const navigate = useNavigate();
+
+    const handleChange = (route) => {
+        navigate(route)
+        props.tabChange(route)
+    }
+
+    return (
+        <>
+            <CFlexBox>
+                <Features>
+                    <CHome selectedTab={props.selectedTab} onClick={() => handleChange("")}>
+                        <RiHome2Fill size={20} />
+                    </CHome>
+                    <IdeaGenerator selectedTab={props.selectedTab} onClick={() => handleChange("idea-generator")}>
+                        Idea Generator
+                    </IdeaGenerator>
+                    <NameGenerator selectedTab={props.selectedTab} onClick={() => handleChange("name-generator")}>
+                        Name Generator
+                    </NameGenerator>
+                    <BugAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("bug-analyzer")}>
+                        Bug Fixer
+                    </BugAnalyzer >
+                    <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("code-analyzer")}>
+                        Code Analyzer
+                    </CodeAnalyzer >
+                    <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>
+                        Reminder
+                    </Reminder>
+                    <ChatBot selectedTab={props.selectedTab} onClick={() => handleChange("chat-bot")}>
+                        Chat Bot
+                    </ChatBot>
+                    <CEgg selectedTab={props.selectedTab} onClick={() => handleChange("egg")}>
+                        <GiEasterEgg size={20} />
+                    </CEgg>
+                </Features>
+                <WindowsIcons>
+                    <GiSquare></GiSquare>
+                    <VscChromeMinimize></VscChromeMinimize>
+                    <AiOutlineClose></AiOutlineClose>
+                </WindowsIcons>
+            </CFlexBox>
+        </>
+    );
+}
+
+export default Navbar;
 
 const Features = styled(FlexBox)`
 align-items: stretch;
@@ -81,52 +135,3 @@ gap: 15px;
 margin-right: 15px;
 color: white;
 `
-
-function Navbar(props) {
-    const navigate = useNavigate();
-
-    const handleChange = (route) => {
-        navigate(route)
-        props.tabChange(route)
-    }
-
-    return (
-        <>
-            <CFlexBox>
-                <Features>
-                    <CHome selectedTab={props.selectedTab} onClick={() => handleChange("")}>
-                        <RiHome2Fill size={20} />
-                    </CHome>
-                    <IdeaGenerator selectedTab={props.selectedTab} onClick={() => handleChange("idea-generator")}>
-                        Idea Generator
-                    </IdeaGenerator>
-                    <NameGenerator selectedTab={props.selectedTab} onClick={() => handleChange("name-generator")}>
-                        Name Generator
-                    </NameGenerator>
-                    <BugAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("bug-analyzer")}>
-                        Bug Fixer
-                    </BugAnalyzer >
-                    <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("code-analyzer")}>
-                        Code Analyzer
-                    </CodeAnalyzer >
-                    <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>
-                        Reminder
-                    </Reminder>
-                    <ChatBot selectedTab={props.selectedTab} onClick={() => handleChange("chat-bot")}>
-                        Chat Bot
-                    </ChatBot>
-                    <CEgg selectedTab={props.selectedTab} onClick={() => handleChange("egg")}>
-                        <GiEasterEgg size={20} />
-                    </CEgg>
-                </Features>
-                <WindowsIcons>
-                    <GiSquare></GiSquare>
-                    <VscChromeMinimize></VscChromeMinimize>
-                    <AiOutlineClose></AiOutlineClose>
-                </WindowsIcons>
-            </CFlexBox>
-        </>
-    );
-}
-
-export default Navbar;
