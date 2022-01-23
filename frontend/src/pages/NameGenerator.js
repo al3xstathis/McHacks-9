@@ -92,7 +92,7 @@ const NameGenerator = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             key={id}>
-                            <Text>{idea.sender} ></Text>
+                            <Text>{idea.sender}</Text>
                             <Text>{idea.message}</Text>
                         </FlexBox>
                     )}
