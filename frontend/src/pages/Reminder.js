@@ -16,15 +16,15 @@ export const Reminder = () => {
     const [disabled, setDisabled] = useState(false)
     const [messages, setMessages] = useState([
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "You might need a reminder to present your Hackathon project."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Leave your phone number and when you have to present. We'll make sure to remind you 30 minutes before."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Powered by Twilio."
         }
     ])
@@ -56,7 +56,7 @@ export const Reminder = () => {
         API.post(`/reminder`, payload).then((res) => {
             console.log(res)
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: 'Added your reminder.'
             }
             setMessages([
