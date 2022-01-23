@@ -13,7 +13,7 @@ func main() {
 	getEnvVariables()
 
 	r := setupRouter()
-	r.Run(":80")
+	r.Run(":8080")
 }
 
 func getEnvVariables() {
