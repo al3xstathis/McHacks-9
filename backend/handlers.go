@@ -69,7 +69,7 @@ func nameGeneratorHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Description) > 150 {
+	if len([]rune(body.Description)) > 1000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long or short, only 3 keywords please"})
 		log.Println("request too long or short")
 		return
@@ -169,7 +169,7 @@ func codeAnalyzerHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Language) > 5 || len(body.Code) > 3000 {
+	if len(body.Language) > 100 || len([]rune(body.Code)) > 3000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
@@ -200,7 +200,7 @@ func fixBugsHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Language) > 5 || len(body.Code) > 3000 {
+	if len(body.Language) > 100 || len([]rune(body.Code)) > 3000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
@@ -230,7 +230,7 @@ func ffaHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Prompt) > 1500 {
+	if len([]rune(body.Prompt)) > 1500 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
@@ -259,7 +259,7 @@ func chatbotHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Chat) > 1500 {
+	if len([]rune(body.Chat)) > 1500 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
