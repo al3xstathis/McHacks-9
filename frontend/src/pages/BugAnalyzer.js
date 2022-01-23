@@ -13,15 +13,15 @@ export const BugAnalyzer = () => {
     const [payload, setPayload] = useState({})
     const [messages, setMessages] = useState([
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "This is your bug fixing assistant."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "I will find the bug in your code and fix it."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Enter the language of the code you wish to fix."
         }
     ])
@@ -44,7 +44,7 @@ export const BugAnalyzer = () => {
     useEffect(() => {
         if (valueType === "code") {
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: 'Enter the code you wish to fix with comments (max number of characters: 2500).'
             }
             setMessages([
@@ -64,7 +64,7 @@ export const BugAnalyzer = () => {
 
         if (input.length > 2500) {
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: 'Please make sure your code is less than 2500 characters. Try again.'
             }
             setMessages([
@@ -99,7 +99,7 @@ export const BugAnalyzer = () => {
         API.post(`/fixBugs`, payload).then((res) => {
             console.log(res)
             let message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: res.data.fixed //fixed
             }
             setMessages([

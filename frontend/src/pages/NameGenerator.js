@@ -14,11 +14,11 @@ export const NameGenerator = () => {
     const [payload, setPayload] = useState({})
     const [messages, setMessages] = useState([
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "This is your name generating assistant."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Enter a description of your project and we'll give you a name."
         }
     ])
@@ -34,7 +34,7 @@ export const NameGenerator = () => {
     useEffect(() => {
         if (receiveValue === 'description') {
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: 'You can keep sending descriptions and we\'ll give you names'
             }
             setMessages([
@@ -77,7 +77,7 @@ export const NameGenerator = () => {
         API.post(`/test`, payload).then((res) => {
             console.log(res)
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: res.data.name
             }
             setMessages([

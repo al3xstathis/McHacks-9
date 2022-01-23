@@ -14,11 +14,11 @@ export const ChatBot = () => {
     const [disabled, setDisabled] = useState(false)
     const [messages, setMessages] = useState([
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Want to have a chat?"
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Write anything and i'll answer you!"
         }
     ])
@@ -66,7 +66,7 @@ export const ChatBot = () => {
         API.post(`/chatbot`, payload).then((res) => {
             console.log(res)
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: res.data.response
             }
             setMessages([

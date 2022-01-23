@@ -13,19 +13,19 @@ export const IdeaGenerator = () => {
 
     const [messages, setMessages] = useState([
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "This is your idea generating assistant."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Enter 3 keywords separated by a commas that have to do with your idea."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Here's an example:"
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "train, wait times, algorithm"
         }
     ])
@@ -65,7 +65,7 @@ export const IdeaGenerator = () => {
         API.post(`/ideaGenerator`, payload).then((res) => {
             console.log(res)
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: res.data.ideas
             }
             setMessages([

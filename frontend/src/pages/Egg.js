@@ -6,11 +6,11 @@ import {motion} from "framer-motion";
 const Egg = () => {
     const [messages] = useState([
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "We hid an easter egg somewhere in this app."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Take your time and look around you might be able to find something cool."
         }
     ])

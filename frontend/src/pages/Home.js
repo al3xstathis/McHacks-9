@@ -9,15 +9,15 @@ export const Home = (props) => {
 
     const messages = [
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Welcome to HackMyHack!"
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "I will be assisting you through your Hackathon by providing you with a variety of tools that will help you win 1st place."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Refer to the table below to see the tools you have access to:"
         }
     ]

@@ -13,15 +13,15 @@ export const CodeAnalyzer = () => {
     const [payload, setPayload] = useState({})
     const [messages, setMessages] = useState([
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "This is your code analyzer assistant."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "I will explain to you any code you don't understand."
         },
         {
-            sender: "bot",
+            sender: "bot@davinci",
             message: "Enter the language of the code you wish to analyze."
         }
     ])
@@ -44,7 +44,7 @@ export const CodeAnalyzer = () => {
     useEffect(() => {
         if (valueType === "code") {
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: 'Enter the code you wish to analyze (max number of characters: 2500).'
             }
             setMessages([
@@ -64,7 +64,7 @@ export const CodeAnalyzer = () => {
 
         if (input.length > 2500) {
             const message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: 'Please make sure your code is less than 2500 characters. Try again.'
             }
             setMessages([
@@ -99,7 +99,7 @@ export const CodeAnalyzer = () => {
         API.post(`/analyzeCode`, payload).then((res) => {
             console.log(res)
             let message = {
-                sender: 'bot',
+                sender: 'bot@davinci',
                 message: res.data.description
             }
             setMessages([
