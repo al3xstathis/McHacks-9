@@ -17,15 +17,16 @@ func getAPIKey() string {
 	return APIKeys[rand.Intn(len(APIKeys))]
 }
 
-func openAIRequest(maxTokens int, prompt string, temperature float32, stopSeqs []string, presencePenalty float32) (string, error) {
+func openAIRequest(maxTokens int, prompt string, temperature float32, stopSeqs []string, frequencePenalty float32, presencePenalty float32) (string, error) {
 	c := gogpt.NewClient(getAPIKey())
 
 	req := gogpt.CompletionRequest{
-		MaxTokens:       maxTokens,
-		Prompt:          prompt,
-		Temperature:     temperature,
-		Stop:            stopSeqs,
-		PresencePenalty: presencePenalty,
+		MaxTokens:        maxTokens,
+		Prompt:           prompt,
+		Temperature:      temperature,
+		Stop:             stopSeqs,
+		FrequencyPenalty: frequencePenalty,
+		PresencePenalty:  presencePenalty,
 	}
 
 	resp, err := c.CreateCompletion(context.Background(), "davinci", req)
@@ -68,8 +69,14 @@ func nameGeneratorHandler(c *gin.Context) {
 		return
 	}
 
+	if len(body.Description) > 150 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long or short, only 3 keywords please"})
+		log.Println("request too long or short")
+		return
+	}
+
 	prompt := fmt.Sprintf(nameGenerationString, body.Description)
-	res, err := openAIRequest(32, prompt, 0.8, []string{"4.", "\n\n"}, 2.0)
+	res, err := openAIRequest(32, prompt, 0.8, []string{"4.", "\n\n"}, 0.5, 0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return
@@ -92,9 +99,15 @@ func ideaGeneratorHandler(c *gin.Context) {
 		return
 	}
 
+	if len(body.Keywords) != 3 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long or short, only 3 keywords please"})
+		log.Println("request too long or short")
+		return
+	}
+
 	keywords := body.Keywords[0] + ", " + body.Keywords[1] + " and " + body.Keywords[2]
 	prompt := fmt.Sprintf(ideaGenerationString, keywords)
-	res, err := openAIRequest(250, prompt, 0.7, []string{"4."}, 2.0)
+	res, err := openAIRequest(250, prompt, 0.7, []string{"4."}, 1.0, 1.0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return
@@ -143,14 +156,14 @@ func codeAnalyzerHandler(c *gin.Context) {
 		return
 	}
 
-	if len(body.Language) > 2500 || len(body.Code) > 3000 {
+	if len(body.Language) > 5 || len(body.Code) > 3000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
 		log.Println("request too long")
 		return
 	}
 
 	prompt := fmt.Sprintf(codeAnalyzerString, body.Code, body.Language)
-	res, err := openAIRequest(250, prompt, 0.0, []string{}, 0.0)
+	res, err := openAIRequest(250, prompt, 0.0, []string{}, 0.0, 0.0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return
@@ -174,8 +187,14 @@ func fixBugsHandler(c *gin.Context) {
 		return
 	}
 
+	if len(body.Language) > 5 || len(body.Code) > 3000 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
+		log.Println("request too long")
+		return
+	}
+
 	prompt := fmt.Sprintf(fixBugsString, body.Language, body.Code, body.Language)
-	res, err := openAIRequest(250, prompt, 0.0, []string{}, 0.0)
+	res, err := openAIRequest(250, prompt, 0.0, []string{}, 0.0, 0.0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return
@@ -198,7 +217,43 @@ func ffaHandler(c *gin.Context) {
 		return
 	}
 
-	res, err := openAIRequest(200, body.Prompt, 0.5, []string{}, 0.0)
+	if len(body.Prompt) > 1500 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
+		log.Println("request too long")
+		return
+	}
+
+	res, err := openAIRequest(200, body.Prompt, 0.5, []string{}, 0.0, 0.0)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"response": res})
+}
+
+// chatbot handler
+type chatbotRequest struct {
+	Chat string `json:"chat" binding:"required"`
+}
+
+func chatbotHandler(c *gin.Context) {
+	var body chatbotRequest
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
+		return
+	}
+
+	if len(body.Chat) > 1500 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "request too long, please keep below 2500 characters"})
+		log.Println("request too long")
+		return
+	}
+
+	prompt := fmt.Sprintf(chatbotString, body.Chat)
+	res, err := openAIRequest(200, prompt, 0.9, []string{"\n", "Human:", "AI:"}, 0.0, 0.6)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"openAI error": err.Error()})
 		return

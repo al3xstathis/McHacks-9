@@ -9,3 +9,5 @@ const reminderString = "This is your reminder that your project submission deadl
 const codeAnalyzerString = "%s\n\nHere's what the above code (written in %s) does:"
 
 const fixBugsString = "Fix bugs in the below code.\n\nBuggy %s:\n\n%s\n\nFixed %s:"
+
+const chatbotString = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman:%s\nAI:"
