@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/xml"
 	"fmt"
 	"log"
 	"math/rand"
@@ -138,6 +139,26 @@ func reminderHandler(c *gin.Context) {
 		return
 	}
 
+	c.JSON(http.StatusOK, gin.H{"status": "success"})
+}
+
+// replying SMS
+type smsReplyRequest struct {
+	XMLName xml.Name `xml:"Response"`
+	Message string   `xml:"Message"`
+}
+
+func replySMSHandler(c *gin.Context) {
+	var body smsReplyRequest
+	err := c.ShouldBindXML(&body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Println(err)
+		return
+	}
+	if body.Message == "yes" || body.Message == "Yes" {
+		sendSMSTimeFormatted(10*time.Minute, "Here's your second reminder that your deadline is approaching!")
+	}
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 

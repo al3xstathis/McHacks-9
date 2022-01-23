@@ -70,3 +70,7 @@ func sendSMSTime(timeString string, body string, number string) error {
 
 	return nil
 }
+
+func sendSMSTimeFormatted(duration time.Duration, body string, number string) {
+	time.AfterFunc(duration, func() { sendSMS(body, number) })
+}
