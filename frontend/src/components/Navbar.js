@@ -52,7 +52,7 @@ justify-content: space-between;
 border: 1px solid black;
 align-items: stretch;
 background-color: #535652;
-height: 6.5vh;
+height: 5vh;
 `
 
 const WindowsIcons = styled(FlexBox)`
@@ -77,19 +77,15 @@ function Navbar(props) {
                     <CHome selectedTab={props.selectedTab} onClick={() => handleChange("")}>
                         <RiHome2Fill size={20} />
                     </CHome>
-                    <p>|</p>
                     <IdeaGenerator selectedTab={props.selectedTab} onClick={() => handleChange("idea-generator")}>
                         Idea Generator
                     </IdeaGenerator>
-                    <p>|</p>
                     <NameGenerator selectedTab={props.selectedTab} onClick={() => handleChange("name-generator")}>
                         Name Generator
                     </NameGenerator>
-                    <p>|</p>
                     <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("code-analyzer")}>
                         Code Analyzer
                     </CodeAnalyzer >
-                    <p>|</p>
                     <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>
                         Reminder
                     </Reminder>

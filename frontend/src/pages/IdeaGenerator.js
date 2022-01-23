@@ -30,7 +30,7 @@ export const IdeaGenerator = () => {
 
     const submitKeywords = () => {
         const message = {
-            sender: 'user@McHacks/namegenerator',
+            sender: 'user@McHacks/ideagenerator',
             message: input
         }
         setMessages([
@@ -38,7 +38,7 @@ export const IdeaGenerator = () => {
         ])
         setPayload({
             ...payload,
-            keywords: input.split(' ')
+            keywords: input.split(', ')
         })
         setInput('')
     }
@@ -51,11 +51,12 @@ export const IdeaGenerator = () => {
 
 
     const findName = () => {
-        API.post(`/test`, payload).then((res) => {
+        console.log(payload)
+        API.post(`/ideaGenerator`, payload).then((res) => {
             console.log(res)
             const message = {
                 sender: 'bot',
-                message: res.data.name
+                message: res.data.ideas
             }
             setMessages([
                 ...messages, message
@@ -82,8 +83,8 @@ export const IdeaGenerator = () => {
                           style={{paddingBottom: 20}}>
                     {messages.map((idea, id) =>
                         <FlexBox key={id}>
-                            <Text>{idea.sender} ></Text>
-                            <Text>{idea.message}</Text>
+                            <Text style={{display: 'flex', alignSelf: 'flex-start'}}>{idea.sender} ></Text>
+                            <Text style={{maxWidth: '75%', whiteSpace: 'pre-line'}}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
@@ -110,6 +111,7 @@ const Input = styled.input`
   background-color: transparent;
   border: none;
   padding: 20px;
+  color: white;
   width: 100%;
   &:focus {
     outline: none;

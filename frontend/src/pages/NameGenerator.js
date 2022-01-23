@@ -3,7 +3,6 @@ import {Container, FlexBox} from "../components";
 import styled from 'styled-components'
 import {HiOutlineChevronRight} from 'react-icons/hi'
 import API from "../api/api";
-import Typewriter from 'typewriter-effect';
 import {motion} from "framer-motion";
 
 
@@ -51,7 +50,7 @@ const NameGenerator = () => {
 
     const submitDescription = () => {
         const message = {
-            sender: 'user@McHacks9',
+            sender: 'user@McHacks9/namegenerator',
             message: input
         }
         setMessages([
@@ -93,8 +92,8 @@ const NameGenerator = () => {
                             initial={{opacity: 0}}
                             animate={{opacity: 1}}
                                  key={id}>
-                            <Text>{idea.sender} ></Text>
-                            <Text>{idea.message}</Text>
+                            <Text style={{display: 'flex', alignSelf: 'flex-start'}}>{idea.sender} ></Text>
+                            <Text style={{maxWidth: '75%', whiteSpace: 'pre-line'}}>{idea.message}</Text>
                         </FlexBox>
                     )}
                 </Messages>
@@ -122,6 +121,7 @@ const Input = styled.input`
   border: none;
   padding: 20px;
   width: 100%;
+  color: white;
   &:focus {
     outline: none;
   }
