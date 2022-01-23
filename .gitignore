@@ -3,3 +3,6 @@
 # executables
 mchacks-backend
 mchacks-backend.exe
+
+#env
+**/.env

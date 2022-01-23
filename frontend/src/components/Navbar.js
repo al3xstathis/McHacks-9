@@ -43,6 +43,9 @@ background-color: ${props => props.selectedTab === `name-generator` && '#000000'
 const CodeAnalyzer = styled(FeatureButton)`
 background-color: ${props => props.selectedTab === `code-analyzer` && '#000000'};
 `
+const Reminder = styled(FeatureButton)`
+background-color: ${props => props.selectedTab === `reminder` && '#000000'};
+`
 
 const CFlexBox = styled(FlexBox)`
 justify-content: space-between;
@@ -62,45 +65,34 @@ color: white;
 function Navbar(props) {
     const navigate = useNavigate();
 
-    const handleIdeaGenerator = () => {
-        navigate("idea-generator")
-        props.tabChange("idea-generator");
-    }
-
-    const handleNameGenerator = () => {
-        navigate("name-generator")
-        props.tabChange("name-generator");
-    }
-
-    const handleCodeAnalyzer = () => {
-        navigate("code-analyzer")
-        props.tabChange("code-analyzer");
-    }
-
-    const handleHome = () => {
-        navigate("")
-        props.tabChange("home");
+    const handleChange = (route) => {
+        navigate(route)
+        props.tabChange(route)
     }
 
     return (
         <>
             <CFlexBox>
                 <Features>
-                    <CHome selectedTab={props.selectedTab} onClick={() => handleHome()}>
+                    <CHome selectedTab={props.selectedTab} onClick={() => handleChange("")}>
                         <RiHome2Fill size={20} />
                     </CHome>
                     <p>|</p>
-                    <IdeaGenerator selectedTab={props.selectedTab} onClick={() => handleIdeaGenerator()}>
+                    <IdeaGenerator selectedTab={props.selectedTab} onClick={() => handleChange("idea-generator")}>
                         Idea Generator
                     </IdeaGenerator>
                     <p>|</p>
-                    <NameGenerator selectedTab={props.selectedTab} onClick={() => handleNameGenerator()}>
+                    <NameGenerator selectedTab={props.selectedTab} onClick={() => handleChange("name-generator")}>
                         Name Generator
                     </NameGenerator>
                     <p>|</p>
-                    <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleCodeAnalyzer()}>
+                    <CodeAnalyzer selectedTab={props.selectedTab} onClick={() => handleChange("code-analyzer")}>
                         Code Analyzer
-                    </CodeAnalyzer>
+                    </CodeAnalyzer >
+                    <p>|</p>
+                    <Reminder selectedTab={props.selectedTab} onClick={() => handleChange("reminder")}>
+                        Reminder
+                    </Reminder>
                 </Features>
                 <WindowsIcons>
                     <GiSquare></GiSquare>

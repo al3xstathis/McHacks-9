@@ -4,7 +4,7 @@ import Router from "./pages";
 import Navbar from './components/Navbar';
 
 function App() {
-    const [selectedTab, setSelectedTab] = useState("home");
+    const [selectedTab, setSelectedTab] = useState("");
 
     const tabChange = (newTab) => {
         setSelectedTab(newTab);
