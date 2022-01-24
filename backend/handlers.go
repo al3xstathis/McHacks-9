@@ -44,6 +44,8 @@ type testRequest struct {
 }
 
 func testHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body testRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -52,7 +54,6 @@ func testHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"name": "test works"})
 }
 
@@ -62,6 +63,8 @@ type nameGeneratorRequest struct {
 }
 
 func nameGeneratorHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body nameGeneratorRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -83,7 +86,6 @@ func nameGeneratorHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"name": res})
 }
 
@@ -93,6 +95,8 @@ type ideaGeneratorRequest struct {
 }
 
 func ideaGeneratorHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body ideaGeneratorRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -115,7 +119,6 @@ func ideaGeneratorHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"ideas": "1." + res})
 }
 
@@ -126,6 +129,8 @@ type reminderRequest struct {
 }
 
 func reminderHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body reminderRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -141,7 +146,6 @@ func reminderHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
@@ -155,7 +159,6 @@ func replySMSHandler(c *gin.Context) {
 		sendSMSTimeFormatted(10*time.Minute, "Here's your second reminder that your deadline is approaching!", from)
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
@@ -166,6 +169,8 @@ type codeAnalyzerRequest struct {
 }
 
 func codeAnalyzerHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body codeAnalyzerRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -187,7 +192,6 @@ func codeAnalyzerHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"description": res})
 }
 
@@ -198,6 +202,8 @@ type fixBugsRequest struct {
 }
 
 func fixBugsHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body fixBugsRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -219,7 +225,6 @@ func fixBugsHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"fixed": res})
 }
 
@@ -229,6 +234,8 @@ type ffaRequest struct {
 }
 
 func ffaHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body ffaRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -249,7 +256,6 @@ func ffaHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"response": res})
 }
 
@@ -259,6 +265,8 @@ type chatbotRequest struct {
 }
 
 func chatbotHandler(c *gin.Context) {
+	enableCORS(c)
+
 	var body chatbotRequest
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
@@ -280,11 +288,14 @@ func chatbotHandler(c *gin.Context) {
 		return
 	}
 
-	enableCORS(c)
 	c.JSON(http.StatusOK, gin.H{"response": res})
 }
 
 func enableCORS(c *gin.Context) {
-	c.Header("Access-Control-Allow-Origin", "https://hackmyhack.tech")
-	c.Header("Access-Control-Allow-Methods", "POST, OPTIONS")
+	if c.Request.Header.Get("origin") == "http://localhost:3000" || c.Request.Header.Get("origin") == "https://hackmyhack.tech" {
+		c.Header("Access-Control-Allow-Origin", c.Request.Header.Get("origin"))
+		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS")
+	} else {
+		c.AbortWithStatus(403)
+	}
 }

@@ -18,5 +18,12 @@ func setupRouter() *gin.Engine {
 	r.POST("/chatbot", chatbotHandler)
 	r.POST("/replySMS", replySMSHandler)
 
+	r.OPTIONS("/:route", preflightHandler)
+
 	return r
+}
+
+func preflightHandler(c *gin.Context) {
+	enableCORS(c)
+	c.Header("Access-Control-Allow-Headers", "content-type")
 }
