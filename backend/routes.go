@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,12 +18,12 @@ func setupRouter() *gin.Engine {
 	r.POST("/chatbot", chatbotHandler)
 	r.POST("/replySMS", replySMSHandler)
 
-	// CORS enabling
-	config := cors.DefaultConfig()
-	config.AllowWildcard = true
-	config.AllowOrigins = []string{"http://localhost/*", "https://hackmyhack.tech/*"}
-	config.AddAllowMethods("OPTIONS")
-	r.Use(cors.New(config))
+	r.OPTIONS("/:route", preflightHandler)
 
 	return r
+}
+
+func preflightHandler(c *gin.Context) {
+	enableCORS(c)
+	c.Header("Access-Control-Allow-Headers", "content-type")
 }
